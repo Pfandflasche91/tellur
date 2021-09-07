@@ -190,8 +190,5 @@
 		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.39568516;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.39568516.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1241880637;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.782572772">
 			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1421419691;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1421419691.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1599352136;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1427077908">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
 	</storageModule>
 </cproject>
