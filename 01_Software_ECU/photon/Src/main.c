@@ -71,7 +71,7 @@ int main(void)
     		pin0Timer = getUptime() + 200; // Delay = 200 ms
     		pin0TimerStarted = true;       // Verhindert, dass pin0Timer
     		                               // vor seinem Ablauf neu gesetzt
-    		                               // wird.
+    		                               // wird
     	}
 
     	// Wurde der Timer gestartet, wird geprueft, ob der Timer

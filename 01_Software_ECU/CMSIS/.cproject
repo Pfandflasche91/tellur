@@ -132,21 +132,6 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="CMSIS.com.st.stm32cube.ide.mcu.gnu.managedbuild.projecttype.lib.1687003116" name="Static Library" projectType="com.st.stm32cube.ide.mcu.gnu.managedbuild.projecttype.lib"/>
 	</storageModule>
-	<storageModule moduleId="scannerConfiguration">
-		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.lib.debug.2074448777;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.lib.debug.2074448777.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1287177850;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.974466398">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.lib.release.630452475;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.lib.release.630452475.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1190083597;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1131062066">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.lib.release.1464171846;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.lib.release.1464171846.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1534811570;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.482559290">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.lib.debug.1374871910;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.lib.debug.1374871910.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1921566083;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1156419115">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Multiple configurations">
@@ -160,4 +145,6 @@
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="scannerConfiguration"/>
+	<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
 </cproject>
