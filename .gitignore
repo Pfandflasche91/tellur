@@ -24,3 +24,5 @@ fp-info-cache
 # Exported BOM files
 *.xml
 *.csv
+
+01_Software_ECU/photon/.settings/
