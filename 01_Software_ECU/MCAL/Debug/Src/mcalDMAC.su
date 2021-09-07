@@ -1,0 +1,12 @@
+mcalDMAC.c:21:26:dmacVerifyDmac	16	static
+mcalDMAC.c:36:26:dmacVerifyStream	16	static
+mcalDMAC.c:58:26:dmacVerifyChannel	16	static
+mcalDMAC.c:76:26:dmacVerifyDirection	16	static
+mcalDMAC.c:94:26:dmacVerifyDataFormat	16	static
+mcalDMAC.c:113:26:dmacVerifyIrqType	16	static
+mcalDMAC.c:129:26:dmacVerifyNumData	16	static
+mcalDMAC.c:157:19:dmacInitDMAC	16	static
+mcalDMAC.c:184:19:dmacEnableStream	16	static
+mcalDMAC.c:204:19:dmacDisableStream	16	static
+mcalDMAC.c:240:19:dmacSetStreamAndChannel	24	static
+mcalDMAC.c:302:19:dmacClearStreamIrqFlags	16	static

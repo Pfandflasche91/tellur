@@ -1,0 +1,4 @@
+mcalSystem.c:120:10:systemGetSysClock	32	static
+mcalSystem.c:187:10:systemGetHclkFreq	16	static,ignoring_inline_asm
+mcalSystem.c:204:10:systemGetPclk1Freq	16	static,ignoring_inline_asm
+mcalSystem.c:220:10:systemGetPclk2Freq	16	static,ignoring_inline_asm
