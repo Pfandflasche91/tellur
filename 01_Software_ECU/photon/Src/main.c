@@ -68,11 +68,10 @@ int main(void)
     	// Wurde der Timer fuer Pin0 gestartet?
     	if (pin0TimerStarted == false)
     	{
-    		pin0Timer = getUptime() + 200; // Delay = 200 ms
+    		pin0Timer = getUptime() + 100; // Delay = 200 ms
     		pin0TimerStarted = true;       // Verhindert, dass pin0Timer
     		                               // vor seinem Ablauf neu gesetzt
     		                               // wird
-    										//TODO: Timer via interrupt
     	}
 
     	// Wurde der Timer gestartet, wird geprueft, ob der Timer

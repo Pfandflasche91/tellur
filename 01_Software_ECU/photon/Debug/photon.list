@@ -257,17 +257,17 @@ int main(void)
  8000306:	2b00      	cmp	r3, #0
  8000308:	d008      	beq.n	800031c <main+0x80>
     	{
-    		pin0Timer = getUptime() + 200; // Delay = 200 ms
+    		pin0Timer = getUptime() + 100; // Delay = 200 ms
  800030a:	f000 f865 	bl	80003d8 <getUptime>
  800030e:	4603      	mov	r3, r0
- 8000310:	33c8      	adds	r3, #200	; 0xc8
+ 8000310:	3364      	adds	r3, #100	; 0x64
  8000312:	4a21      	ldr	r2, [pc, #132]	; (8000398 <main+0xfc>)
  8000314:	6013      	str	r3, [r2, #0]
     		pin0TimerStarted = true;       // Verhindert, dass pin0Timer
  8000316:	4b1f      	ldr	r3, [pc, #124]	; (8000394 <main+0xf8>)
  8000318:	2201      	movs	r2, #1
  800031a:	701a      	strb	r2, [r3, #0]
-    										//TODO: Timer via interrupt
+    		                               // wird
     	}
 
     	// Wurde der Timer gestartet, wird geprueft, ob der Timer
