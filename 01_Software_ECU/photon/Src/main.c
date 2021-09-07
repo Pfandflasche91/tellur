@@ -72,6 +72,7 @@ int main(void)
     		pin0TimerStarted = true;       // Verhindert, dass pin0Timer
     		                               // vor seinem Ablauf neu gesetzt
     		                               // wird
+    										//TODO: Timer via interrupt
     	}
 
     	// Wurde der Timer gestartet, wird geprueft, ob der Timer
