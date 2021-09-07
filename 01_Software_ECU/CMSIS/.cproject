@@ -4,7 +4,7 @@
 		<cconfiguration id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.lib.debug.2074448777">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.lib.debug.2074448777" moduleId="org.eclipse.cdt.core.settings" name="Debug">
 				<macros>
-					<stringMacro name="CMSIS_LOC" type="VALUE_PATH_DIR" value="D:\Projekte\workspaces\workspace_photon\CMSIS"/>
+					<stringMacro name="CMSIS_LOC" type="VALUE_PATH_DIR" value="D:\Projekte\tellur\01_Software_ECU\CMSIS"/>
 				</macros>
 				<externalSettings>
 					<externalSetting>

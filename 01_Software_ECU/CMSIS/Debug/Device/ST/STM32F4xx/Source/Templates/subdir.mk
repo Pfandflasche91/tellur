@@ -16,5 +16,5 @@ C_DEPS += \
 
 # Each subdirectory must supply rules for building sources it contributes
 Device/ST/STM32F4xx/Source/Templates/%.o: ../Device/ST/STM32F4xx/Source/Templates/%.c Device/ST/STM32F4xx/Source/Templates/subdir.mk
-	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -c -I"D:/Projekte/photon/01_Software_ECU/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/Projekte/photon/01_Software_ECU/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -c -I"D:/Projekte/tellur/01_Software_ECU/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/Projekte/tellur/01_Software_ECU/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 

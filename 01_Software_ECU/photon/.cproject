@@ -44,10 +44,9 @@
 									<listOptionValue builtIn="false" value="STM32F446RETx"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths.809084291" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CMSIS/Include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CMSIS/Device/ST/STM32F4xx/Include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CMSIS/Include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/MCAL/Inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/MCAL/Src}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1427077908" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>
@@ -58,10 +57,8 @@
 							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.2141800836" name="MCU GCC Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker">
 								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script.1686823506" name="Linker Script (-T)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script" value="${workspace_loc:/${ProjName}/STM32F446RETX_FLASH.ld}" valueType="string"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.directories.152406505" name="Library search path (-L)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.directories" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;D:\Projekte\workspaces\workspace_photon\CMSIS\Debug&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Projekte\workspaces\workspace_photon\MCAL\Debug&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Projekte\photon\01_Software_ECU\MCAL\Debug&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Projekte\photon\01_Software_ECU\CMSIS\Debug&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;D:\Projekte\tellur\01_Software_ECU\CMSIS\Debug&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;D:\Projekte\tellur\01_Software_ECU\MCAL\Debug&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.libraries.539817754" name="Libraries (-l)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.libraries" valueType="libs">
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="CMSIS"/>
@@ -180,18 +177,21 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="photon.null.16655408" name="photon"/>
+		<project id="photon.null.212665333" name="photon"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="refreshScope"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.790120868;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.790120868.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1820077020;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.42653272">
+		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1096162217;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1096162217.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.2039478223;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1807263694">
+			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.39568516;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.39568516.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1241880637;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.782572772">
 			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1421419691;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1421419691.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1599352136;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1427077908">
-			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="refreshScope"/>
 </cproject>
