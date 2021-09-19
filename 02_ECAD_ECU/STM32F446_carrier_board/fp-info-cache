@@ -1,4 +1,4 @@
-19222598694337349
+19232390365586229
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -83041,6 +83041,20 @@ Crystal or Oscillator
 2
 2
 max_KiCAD_lib
+FX10A80P8SV71
+FX10A-80P/8-SV(71)-1
+Connector
+0
+90
+90
+max_KiCAD_lib
+FX10A80S8SV71
+FX10A-80S/8-SV(71)-2
+Connector
+0
+90
+90
+max_KiCAD_lib
 HRS_FX10A-168P-SV
 
 
@@ -83055,12 +83069,40 @@ HRS_FX10A-168S-SV
 170
 170
 max_KiCAD_lib
+LVS505020-150M-N
+
+
+0
+2
+2
+max_KiCAD_lib
 QFP50P2600X2600X160-176N
 LQFP176
 Integrated Circuit
 0
 176
 176
+max_KiCAD_lib
+SOIC127P600X170-9N
+SOIC8E
+Integrated Circuit
+0
+9
+9
+max_KiCAD_lib
+SON127P800X600X80-9N
+
+
+0
+9
+9
+max_KiCAD_lib
+SPDT_Slide_Switches
+
+
+0
+3
+3
 max_KiCAD_lib
 X322512MSB4SI
 X322512MSB4SI-2
