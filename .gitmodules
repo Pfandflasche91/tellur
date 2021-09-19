@@ -4,3 +4,6 @@
 [submodule "01_Software_ECU/catalyst"]
 	path = 01_Software_ECU/catalyst
 	url = https://github.com/Pfandflasche91/catalyst.git
+[submodule "02_ECAD_ECU/Breakoutboard_carrier_board/kicad_lib"]
+	path = 02_ECAD_ECU/Breakoutboard_carrier_board/kicad_lib
+	url = https://github.com/Pfandflasche91/kicad_lib.git
