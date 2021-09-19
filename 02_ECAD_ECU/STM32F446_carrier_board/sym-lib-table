@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name max_KiCAD_lib)(type Legacy)(uri ${KIPRJMOD}/kicad_lib/01_lib/max_KiCAD_lib.lib)(options "")(descr ""))
+)

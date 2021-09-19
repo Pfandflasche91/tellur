@@ -1,5 +1,5 @@
-[submodule "02_ECAD_ECU/kicad_lib"]
-	path = 02_ECAD_ECU/kicad_lib
+[submodule "02_ECAD_ECU/STM32F446_carrier_board/kicad_lib"]
+	path = 02_ECAD_ECU/STM32F446_carrier_board/kicad_lib
 	url = https://github.com/Pfandflasche91/kicad_lib.git
 [submodule "01_Software_ECU/catalyst"]
 	path = 01_Software_ECU/catalyst
