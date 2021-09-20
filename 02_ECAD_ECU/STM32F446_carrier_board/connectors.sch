@@ -391,7 +391,7 @@ Wire Wire Line
 Wire Wire Line
 	2600 6650 3100 6650
 Wire Wire Line
-	2600 6450 3100 6450
+	2600 7250 3100 7250
 Wire Wire Line
 	4600 5950 4100 5950
 Wire Wire Line
@@ -399,19 +399,13 @@ Wire Wire Line
 Wire Wire Line
 	4600 6350 4100 6350
 Wire Wire Line
-	2600 6950 3100 6950
+	4600 3350 4100 3350
 Wire Wire Line
-	2600 7450 3100 7450
-Wire Wire Line
-	2600 7250 3100 7250
-Wire Wire Line
-	2600 5950 3100 5950
-Wire Wire Line
-	2600 4150 3100 4150
+	2600 5550 3100 5550
 Wire Wire Line
 	2600 3950 3100 3950
 Wire Wire Line
-	2600 3750 3100 3750
+	2600 5950 3100 5950
 Wire Wire Line
 	2600 3550 3100 3550
 Wire Wire Line
@@ -432,7 +426,7 @@ Text GLabel 2600 6050 0    50   Input ~ 0
 PA4
 Text GLabel 2600 6250 0    50   Input ~ 0
 PA5
-Text GLabel 2600 6450 0    50   Input ~ 0
+Text GLabel 2600 7250 0    50   Input ~ 0
 PA6
 Text GLabel 2600 6650 0    50   Input ~ 0
 PA7
@@ -442,19 +436,13 @@ Text GLabel 4600 6150 2    50   Input ~ 0
 PA9
 Text GLabel 4600 6350 2    50   Input ~ 0
 PA10
-Text GLabel 2600 6950 0    50   Input ~ 0
-PA15
-Text GLabel 2600 7250 0    50   Input ~ 0
+Text GLabel 4600 3350 2    50   Input ~ 0
 PB0
-Text GLabel 2600 7450 0    50   Input ~ 0
-PB1
-Text GLabel 2600 5950 0    50   Input ~ 0
-PB4
-Text GLabel 2600 4150 0    50   Input ~ 0
+Text GLabel 2600 5550 0    50   Input ~ 0
 PB5
 Text GLabel 2600 3950 0    50   Input ~ 0
 PB6
-Text GLabel 2600 3750 0    50   Input ~ 0
+Text GLabel 2600 5950 0    50   Input ~ 0
 PB7
 Text GLabel 4600 3550 2    50   Input ~ 0
 PB10
@@ -462,44 +450,40 @@ Text GLabel 2600 4650 0    50   Input ~ 0
 PC2
 Text GLabel 2600 5050 0    50   Input ~ 0
 PC3
-Text GLabel 2600 6150 0    50   Input ~ 0
+Text GLabel 2600 6350 0    50   Input ~ 0
 PD2
 Text GLabel 2600 3650 0    50   Input ~ 0
 PC0
 Text GLabel 2600 4450 0    50   Input ~ 0
 PC1
-Text GLabel 2600 6850 0    50   Input ~ 0
+Text GLabel 2600 7450 0    50   Input ~ 0
 PC4
-Text GLabel 2600 7050 0    50   Input ~ 0
-PC5
 Text GLabel 4600 5550 2    50   Input ~ 0
 PC8
 Text GLabel 4600 5750 2    50   Input ~ 0
 PC9
-Text GLabel 2600 6750 0    50   Input ~ 0
+Text GLabel 2600 7350 0    50   Input ~ 0
 PC10
-Text GLabel 2600 6550 0    50   Input ~ 0
+Text GLabel 2600 6750 0    50   Input ~ 0
 PC11
-Text GLabel 2600 6350 0    50   Input ~ 0
+Text GLabel 2600 5750 0    50   Input ~ 0
 PC12
 Text GLabel 2600 3050 0    50   Input ~ 0
 PC13
 Wire Wire Line
 	3100 3050 2600 3050
 Wire Wire Line
-	3100 6350 2600 6350
-Wire Wire Line
-	3100 6550 2600 6550
+	3100 5750 2600 5750
 Wire Wire Line
 	3100 6750 2600 6750
+Wire Wire Line
+	3100 7350 2600 7350
 Wire Wire Line
 	4100 5750 4600 5750
 Wire Wire Line
 	4100 5550 4600 5550
 Wire Wire Line
-	3100 7050 2600 7050
-Wire Wire Line
-	3100 6850 2600 6850
+	3100 7450 2600 7450
 Wire Wire Line
 	3100 5050 2600 5050
 Wire Wire Line
@@ -509,5 +493,190 @@ Wire Wire Line
 Wire Wire Line
 	3100 3650 2600 3650
 Wire Wire Line
-	3100 6150 2600 6150
+	3100 6350 2600 6350
+Wire Wire Line
+	3100 6850 2600 6850
+Text GLabel 2600 6850 0    50   Input ~ 0
+PC5
+Text GLabel 4600 3450 2    50   Input ~ 0
+PA15
+Wire Wire Line
+	4600 3450 4100 3450
+Wire Wire Line
+	2600 7050 3100 7050
+Text GLabel 2600 7050 0    50   Input ~ 0
+PB1
+Text GLabel 2600 4750 0    50   Input ~ 0
+PB4
+Wire Wire Line
+	2600 4750 3100 4750
+Wire Wire Line
+	4100 5850 4600 5850
+$Comp
+L power:VCC #PWR0143
+U 1 1 61647D3C
+P 4600 5850
+F 0 "#PWR0143" H 4600 5700 50  0001 C CNN
+F 1 "VCC" V 4615 5978 50  0000 L CNN
+F 2 "" H 4600 5850 50  0001 C CNN
+F 3 "" H 4600 5850 50  0001 C CNN
+	1    4600 5850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4100 5450 4600 5450
+$Comp
+L power:+5V #PWR0144
+U 1 1 6164ACD4
+P 4600 5450
+F 0 "#PWR0144" H 4600 5300 50  0001 C CNN
+F 1 "+5V" V 4615 5578 50  0000 L CNN
+F 2 "" H 4600 5450 50  0001 C CNN
+F 3 "" H 4600 5450 50  0001 C CNN
+	1    4600 5450
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+3.3V #PWR0145
+U 1 1 6164C68B
+P 4600 4250
+F 0 "#PWR0145" H 4600 4100 50  0001 C CNN
+F 1 "+3.3V" V 4615 4378 50  0000 L CNN
+F 2 "" H 4600 4250 50  0001 C CNN
+F 3 "" H 4600 4250 50  0001 C CNN
+	1    4600 4250
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4600 4250 4100 4250
+$Comp
+L power:+3.3V #PWR0146
+U 1 1 6165065F
+P 4600 4850
+F 0 "#PWR0146" H 4600 4700 50  0001 C CNN
+F 1 "+3.3V" V 4615 4978 50  0000 L CNN
+F 2 "" H 4600 4850 50  0001 C CNN
+F 3 "" H 4600 4850 50  0001 C CNN
+	1    4600 4850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4600 4850 4100 4850
+$Comp
+L power:+3.3V #PWR0147
+U 1 1 61653117
+P 4600 3850
+F 0 "#PWR0147" H 4600 3700 50  0001 C CNN
+F 1 "+3.3V" V 4615 3978 50  0000 L CNN
+F 2 "" H 4600 3850 50  0001 C CNN
+F 3 "" H 4600 3850 50  0001 C CNN
+	1    4600 3850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4600 3850 4100 3850
+Wire Wire Line
+	4600 7350 4100 7350
+$Comp
+L power:GND #PWR0148
+U 1 1 61658431
+P 4600 7350
+F 0 "#PWR0148" H 4600 7100 50  0001 C CNN
+F 1 "GND" V 4605 7222 50  0000 R CNN
+F 2 "" H 4600 7350 50  0001 C CNN
+F 3 "" H 4600 7350 50  0001 C CNN
+	1    4600 7350
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+3.3V #PWR0149
+U 1 1 6165DDEC
+P 4600 5150
+F 0 "#PWR0149" H 4600 5000 50  0001 C CNN
+F 1 "+3.3V" V 4615 5278 50  0000 L CNN
+F 2 "" H 4600 5150 50  0001 C CNN
+F 3 "" H 4600 5150 50  0001 C CNN
+	1    4600 5150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4600 5150 4100 5150
+Wire Wire Line
+	4600 4550 4100 4550
+$Comp
+L power:GND #PWR0150
+U 1 1 61669556
+P 4600 4550
+F 0 "#PWR0150" H 4600 4300 50  0001 C CNN
+F 1 "GND" V 4605 4422 50  0000 R CNN
+F 2 "" H 4600 4550 50  0001 C CNN
+F 3 "" H 4600 4550 50  0001 C CNN
+	1    4600 4550
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2600 4150 3100 4150
+$Comp
+L power:GND #PWR0151
+U 1 1 6166C383
+P 2600 4150
+F 0 "#PWR0151" H 2600 3900 50  0001 C CNN
+F 1 "GND" V 2605 4022 50  0000 R CNN
+F 2 "" H 2600 4150 50  0001 C CNN
+F 3 "" H 2600 4150 50  0001 C CNN
+	1    2600 4150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4600 3050 4100 3050
+$Comp
+L power:GND #PWR0152
+U 1 1 6166F259
+P 4600 3050
+F 0 "#PWR0152" H 4600 2800 50  0001 C CNN
+F 1 "GND" V 4605 2922 50  0000 R CNN
+F 2 "" H 4600 3050 50  0001 C CNN
+F 3 "" H 4600 3050 50  0001 C CNN
+	1    4600 3050
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2600 6450 3100 6450
+$Comp
+L power:GND #PWR0153
+U 1 1 61672A0F
+P 2600 6450
+F 0 "#PWR0153" H 2600 6200 50  0001 C CNN
+F 1 "GND" V 2605 6322 50  0000 R CNN
+F 2 "" H 2600 6450 50  0001 C CNN
+F 3 "" H 2600 6450 50  0001 C CNN
+	1    2600 6450
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4600 4050 4100 4050
+$Comp
+L power:GND #PWR0154
+U 1 1 61675A9C
+P 4600 4050
+F 0 "#PWR0154" H 4600 3800 50  0001 C CNN
+F 1 "GND" V 4605 3922 50  0000 R CNN
+F 2 "" H 4600 4050 50  0001 C CNN
+F 3 "" H 4600 4050 50  0001 C CNN
+	1    4600 4050
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4600 7450 4100 7450
+$Comp
+L power:GND #PWR0155
+U 1 1 6167D2A3
+P 4600 7450
+F 0 "#PWR0155" H 4600 7200 50  0001 C CNN
+F 1 "GND" V 4605 7322 50  0000 R CNN
+F 2 "" H 4600 7450 50  0001 C CNN
+F 3 "" H 4600 7450 50  0001 C CNN
+	1    4600 7450
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC
