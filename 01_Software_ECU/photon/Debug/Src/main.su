@@ -1,2 +1,2 @@
-main.c:30:5:main	24	static
-main.c:54:6:delayMillis	24	static
+main.c:30:5:main	32	static
+main.c:65:6:delayMillis	24	static

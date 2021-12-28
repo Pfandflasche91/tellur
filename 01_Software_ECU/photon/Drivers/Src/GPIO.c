@@ -67,7 +67,7 @@ void GPIO_PCLK(GPIO_RegDef_t *pGPIOx, uint8_t status)
 /*******************************************************************
  * @function			- GPIO_init
  * @brief				- This function init the GPIO
- * @param[in]			- Handle strcut of GPIO
+ * @param[in]			- Handle struct of GPIO
  * @return				- none
  * @Note				- none
  */
@@ -118,22 +118,22 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 {
 	if(pGPIOx == GPIOA)
 	{
-		GPIOA_REG_RESET();
+		//TODO:deinit
 	}else if (pGPIOx == GPIOB)
 	{
-		GPIOB_REG_RESET();
+		//TODO:deinit
 	}else if (pGPIOx == GPIOC)
 	{
-		GPIOC_REG_RESET();
+		//TODO:deinit
 	}else if (pGPIOx == GPIOD)
 	{
-		GPIOD_REG_RESET();
+		//TODO:deinit
 	}else if (pGPIOx == GPIOE)
 	{
-		GPIOE_REG_RESET();
+		//TODO:deinit
 	}else if (pGPIOx == GPIOH)
 	{
-		GPIOH_REG_RESET();
+		//TODO:deinit
 	}
 
 }

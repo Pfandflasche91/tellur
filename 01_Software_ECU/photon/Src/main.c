@@ -37,16 +37,27 @@ int main(void)
 	rectangle.GPIO_PinConfig.GPIO_PinOPType 		= GPIO_OPTYPE_PP;
 	rectangle.GPIO_PinConfig.GPIO_PinPuPdControl 	= GPIO_NO_PUPD;
 
+	GPIO_Handle_t LED;
+	LED.pGPIOx = GPIOA;
+	LED.GPIO_PinConfig.GPIO_PinNumber 				= GPIO_PIN2;
+	LED.GPIO_PinConfig.GPIO_PinMode 				= GPIO_MODE_OUT;
+	LED.GPIO_PinConfig.GPIO_PinSpeed 				= GPIO_SPEED_FAST;
+	LED.GPIO_PinConfig.GPIO_PinOPType 				= GPIO_OPTYPE_PP;
+	LED.GPIO_PinConfig.GPIO_PinPuPdControl 			= GPIO_NO_PUPD;
+
 	//Clock activate for GPIOA AHB1ENR
 	GPIO_PCLK(GPIOA,ENABLE);
 	//GPIO Init
 	GPIO_Init(&rectangle);
+	GPIO_Init(&LED);
 	while(1)
 	{
 		//GPIO_Write(GPIOA, GPIO_PIN0, Value);
 		GPIO_Write(&rectangle, GPIO_PIN_SET);
+		GPIO_Write(&LED, GPIO_PIN_SET);
 		delayMillis(500);
 		GPIO_Write(&rectangle, GPIO_PIN_RESET);
+		GPIO_Write(&LED, GPIO_PIN_RESET);
 		delayMillis(500);
 	}
 }

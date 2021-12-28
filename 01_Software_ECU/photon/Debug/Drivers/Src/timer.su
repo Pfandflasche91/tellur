@@ -1,0 +1,2 @@
+timer.c:19:6:TIM_PCLK	16	static
+timer.c:32:6:TIM_Init	4	static

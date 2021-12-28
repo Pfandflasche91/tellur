@@ -48,7 +48,31 @@
 #define GPIOH_BASEADDR			(AHB1PERIPH_BASEADDR + 0x1C00UL)
 #define RCC_BASEADDR			(AHB1PERIPH_BASEADDR + 0x3800UL)
 
+/*
+ * Base addresses of peripherals which are hanging on APB2 bus
+ * TODO: Complete for all other peripherals
+ */
 
+#define TIM1_BASEADDR			APB2PERIPH_BASEADDR
+#define TIM8_BASEADDR			(APB2PERIPH_BASEADDR + 0x0400UL)
+#define TIM9_BASEADDR			(APB2PERIPH_BASEADDR + 0x4000UL)
+#define TIM10_BASEADDR			(APB2PERIPH_BASEADDR + 0x4400UL)
+#define TIM11_BASEADDR			(APB2PERIPH_BASEADDR + 0x4800UL)
+
+/*
+ * Base addresses of peripherals which are hanging on APB1 bus
+ * TODO: Complete for all other peripherals
+ */
+
+#define TIM2_BASEADDR			APB1PERIPH_BASEADDR
+#define TIM3_BASEADDR			(APB1PERIPH_BASEADDR + 0x0400UL)
+#define TIM4_BASEADDR			(APB1PERIPH_BASEADDR + 0x0800UL)
+#define TIM5_BASEADDR			(APB1PERIPH_BASEADDR + 0x0C00UL)
+#define TIM6_BASEADDR			(APB1PERIPH_BASEADDR + 0x1000UL)
+#define TIM7_BASEADDR			(APB1PERIPH_BASEADDR + 0x1400UL)
+#define TIM12_BASEADDR			(APB1PERIPH_BASEADDR + 0x1800UL)
+#define TIM13_BASEADDR			(APB1PERIPH_BASEADDR + 0x1C00UL)
+#define TIM14_BASEADDR			(APB1PERIPH_BASEADDR + 0x2000UL)
 
 /******peripheral register definition structures******/
 
@@ -70,9 +94,49 @@ typedef struct
 	volatile uint32_t AFRH;		/*!< GPIO port alternate function high register   	Address offset : 0x24*/
 }GPIO_RegDef_t;
 
+/******peripheral register definition structures******/
+
+/*
+ * Timer Tim10/11/13/14
+ */
+
+typedef struct
+{
+	volatile uint32_t CR1;						/* control register 1						Address offset : 0x00*/
+	volatile uint32_t CR1_reset;				/* control register 1 reset										 */
+	volatile uint32_t SMCR;						/* SMCR										Address offset : 0x08*/
+	volatile uint32_t SMCR_reset;				/* SMCR reset								  					 */
+	volatile uint32_t DIER;						/* Interrupt enable register				Address offset : 0x0C*/
+	volatile uint32_t DIER_reset;				/* Interrupt enable register reset								 */
+	volatile uint32_t SR;						/* status register							Address offset : 0x10*/
+	volatile uint32_t SR_reset;					/* status register status										 */
+	volatile uint32_t EGR;						/* event generation register				Address offset : 0x14*/
+	volatile uint32_t EGR_reset;				/* event generation register reset				  				 */
+	volatile uint32_t CCMR1_output;				/* capture/compare mode register 1			Address offset : 0x18*/
+	volatile uint32_t CCMR1_output_reset;		/* capture/compare mode register 1 reset						 */
+	volatile uint32_t CCMR1_input;				/* capture/compare mode register 1								 */
+	volatile uint32_t CCMR1_input_reset;		/* capture/compare mode register 1 reset						 */
+	volatile uint32_t RESERVED_1;				/* reserved														 */
+	volatile uint32_t CCER;						/* capture/compare enable register			Address offset : 0x20*/
+	volatile uint32_t CCER_reset;				/* capture/compare enable register reset						 */
+	volatile uint32_t CNT;						/* counter									Address offset : 0x24*/
+	volatile uint32_t CNT_reset;				/* counter reset												 */
+	volatile uint32_t PSC;						/* prescaler								Address offset : 0x28*/
+	volatile uint32_t PSC_reset;				/* prescaler reset												 */
+	volatile uint32_t ARR;						/* auto-reload register						Address offset : 0x2C*/
+	volatile uint32_t ARR_reset;				/* auto-reload register reset									 */
+	volatile uint32_t RESERVED_2;				/* reserved														 */
+	volatile uint32_t CCR1;						/* capture/compare register 1				Address offset : 0x34*/
+	volatile uint32_t CCR1_reset;				/* capture/compare register 1 reset								 */
+	volatile uint32_t RESERVED_3;				/* reserved														 */
+	volatile uint32_t OR;						/* option register							Address offset : 0x50*/
+	volatile uint32_t OR_reset;					/* option register reset										 */
+}TIM_10_11_12_14_RegDef_t;
+
 /*
  * peripheral register definition structure for RCC
  */
+
 typedef struct
 {
 	volatile uint32_t CR;			/*!< RCC clock control register										Address offset : 0x00*/
@@ -131,6 +195,24 @@ typedef struct
 
 #define RCC				((RCC_RegDef_t*)RCC_BASEADDR)
 
+/*
+ * Timer
+ */
+
+#define TIM1			((TIMER_10_11_12_14_RegDef_t*)TIM1_BASEADDR)
+#define TIM2			((TIMER_10_11_12_14_RegDef_t*)TIM2_BASEADDR)
+#define TIM3			((TIMER_10_11_12_14_RegDef_t*)TIM3_BASEADDR)
+#define TIM4			((TIMER_10_11_12_14_RegDef_t*)TIM4_BASEADDR)
+#define TIM5			((TIMER_10_11_12_14_RegDef_t*)TIM5_BASEADDR)
+#define TIM6			((TIMER_10_11_12_14_RegDef_t*)TIM6_BASEADDR)
+#define TIM7			((TIMER_10_11_12_14_RegDef_t*)TIM7_BASEADDR)
+#define TIM8			((TIMER_10_11_12_14_RegDef_t*)TIM8_BASEADDR)
+#define TIM9			((TIMER_10_11_12_14_RegDef_t*)TIM9_BASEADDR)
+#define TIM10			((TIMER_10_11_12_14_RegDef_t*)TIM10_BASEADDR)
+#define TIM11			((TIMER_10_11_12_14_RegDef_t*)TIM11_BASEADDR)
+#define TIM12			((TIMER_10_11_12_14_RegDef_t*)TIM12_BASEADDR)
+#define TIM13			((TIMER_10_11_12_14_RegDef_t*)TIM13_BASEADDR)
+#define TIM14			((TIMER_10_11_12_14_RegDef_t*)TIM14_BASEADDR)
 
 /*
  * Clock Enable Macros for GPIOx peripherals
@@ -157,6 +239,45 @@ typedef struct
 #define GPIOF_PCLK_DI()	(RCC->AHB1ENR &= ~(0x1UL << 5U))
 #define GPIOG_PCLK_DI()	(RCC->AHB1ENR &= ~(0x1UL << 6U))
 #define GPIOH_PCLK_DI()	(RCC->AHB1ENR &= ~(0x1UL << 7U))
+
+/*
+ * Clock Enable Macros for Timer peripherals
+ */
+
+#define TIM1_EN()		(RCC->APB2ENR |= (0x1UL << 0U))
+#define TIM2_EN()		(RCC->APB1ENR |= (0x1UL << 0U))
+#define TIM3_EN()		(RCC->APB1ENR |= (0x1UL << 1U))
+#define TIM4_EN()		(RCC->APB1ENR |= (0x1UL << 2U))
+#define TIM5_EN()		(RCC->APB1ENR |= (0x1UL << 3U))
+#define TIM6_EN()		(RCC->APB1ENR |= (0x1UL << 4U))
+#define TIM7_EN()		(RCC->APB1ENR |= (0x1UL << 5U))
+#define TIM8_EN()		(RCC->APB2ENR |= (0x1UL << 1U))
+#define TIM9_EN()		(RCC->APB2ENR |= (0x1UL << 16U))
+#define TIM10_EN()		(RCC->APB2ENR |= (0x1UL << 17U))
+#define TIM11_EN()		(RCC->APB2ENR |= (0x1UL << 18U))
+#define TIM12_EN()		(RCC->APB1ENR |= (0x1UL << 6U))
+#define TIM13_EN()		(RCC->APB1ENR |= (0x1UL << 7U))
+#define TIM14_EN()		(RCC->APB1ENR |= (0x1UL << 8U))
+
+/*
+ * Clock Disable Macros for Timer peripherals
+ */
+
+#define TIM1_DI()		(RCC->APB2ENR &= ~(0x1UL << 0U))
+#define TIM2_DI()		(RCC->APB1ENR &= ~(0x1UL << 0U))
+#define TIM3_DI()		(RCC->APB1ENR &= ~(0x1UL << 1U))
+#define TIM4_DI()		(RCC->APB1ENR &= ~(0x1UL << 2U))
+#define TIM5_DI()		(RCC->APB1ENR &= ~(0x1UL << 3U))
+#define TIM6_DI()		(RCC->APB1ENR &= ~(0x1UL << 4U))
+#define TIM7_DI()		(RCC->APB1ENR &= ~(0x1UL << 5U))
+#define TIM8_DI()		(RCC->APB2ENR &= ~(0x1UL << 1U))
+#define TIM9_DI()		(RCC->APB2ENR &= ~(0x1UL << 16U))
+#define TIM10_DI()		(RCC->APB2ENR &= ~(0x1UL << 17U))
+#define TIM11_DI()		(RCC->APB2ENR &= ~(0x1UL << 18U))
+#define TIM12_DI()		(RCC->APB1ENR &= ~(0x1UL << 6U))
+#define TIM13_DI()		(RCC->APB1ENR &= ~(0x1UL << 7U))
+#define TIM14_DI()		(RCC->APB1ENR &= ~(0x1UL << 8U))
+
 #include "GPIO.h"
 
 #endif
