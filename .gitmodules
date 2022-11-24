@@ -7,3 +7,9 @@
 [submodule "02_ECAD_ECU/Breakoutboard_carrier_board/kicad_lib"]
 	path = 02_ECAD_ECU/Breakoutboard_carrier_board/kicad_lib
 	url = https://github.com/Pfandflasche91/kicad_lib.git
+[submodule "02_ECAD_ECU/twoLevelInverter/Kicad_6_customLib"]
+	path = 02_ECAD_ECU/twoLevelInverter/Kicad_6_customLib
+	url = https://github.com/Pfandflasche91/Kicad_6_customLib.git
+[submodule "02_ECAD_ECU/twoLevelInverter/kicad_lib"]
+	path = 02_ECAD_ECU/twoLevelInverter/kicad_lib
+	url = https://github.com/Pfandflasche91/kicad_lib.git
