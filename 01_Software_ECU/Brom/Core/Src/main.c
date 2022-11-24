@@ -82,6 +82,7 @@ int main(void)
 	char uart_buf[50];
 	int uart_buf_len;
 	uint16_t timer_val;
+	int counter = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -157,10 +158,18 @@ int main(void)
 
 
 	  //show elapsed time
-	  uart_buf_len = sprintf(uart_buf, "%u us\r\n",timer_val);
-	  CDC_Transmit_FS((uint8_t *) uart_buf, strlen(uart_buf));
-	  //HAL_UART_Transmit(&huart3, (uint8_t *) uart_buf, uart_buf_len, 100);
+	  //uart_buf_len = sprintf(uart_buf, "%u us\r\n",timer_val);
+	  //CDC_Transmit_FS((uint8_t *) uart_buf, strlen(uart_buf));
 
+	  uart_buf_len = sprintf(uart_buf, "Iteration %i s\r\n", counter);
+	  CDC_Transmit_FS((uint8_t *) uart_buf, strlen(uart_buf));
+
+	  //HAL_UART_Transmit(&huart3, (uint8_t *) uart_buf, uart_buf_len, 100);
+	  counter += 1;
+	  if (counter == 123)
+	  {
+		  counter = 0;
+	  }
 	  HAL_Delay(1000);
 
   }
@@ -180,6 +189,7 @@ void SystemClock_Config(void)
   */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
@@ -196,6 +206,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
@@ -268,7 +279,6 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_ACTIVE;
-  sConfigOC.Pulse = 2400-1;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_OC_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
@@ -495,8 +505,8 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 			duty_cycle = 10;
 		}
 		int r = rand() % (2400-1);
-		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,r);
-		//__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_2,duty_cycle);
+		//__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,r);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,duty_cycle);
 	}
 
 }
@@ -556,5 +566,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
