@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (9-2020-q2-update)
+# Toolchain: GNU Tools for STM32 (10.3-2021.10)
 ################################################################################
 
 OBJ_SRCS := 
@@ -8,6 +8,7 @@ S_SRCS :=
 C_SRCS := 
 S_UPPER_SRCS := 
 O_SRCS := 
+SU_FILES := 
 OBJS := 
 ARCHIVES := 
 S_DEPS := 
@@ -16,6 +17,8 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+.metadata/.plugins/org.eclipse.cdt.make.core \
+.metadata/.plugins/org.eclipse.cdt.managedbuilder.core \
 Device/ST/STM32F4xx/Source/Templates/gcc \
 Device/ST/STM32F4xx/Source/Templates \
 

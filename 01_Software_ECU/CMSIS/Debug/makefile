@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (9-2020-q2-update)
+# Toolchain: GNU Tools for STM32 (10.3-2021.10)
 ################################################################################
 
 -include ../makefile.init
@@ -11,7 +11,8 @@ RM := rm -rf
 -include sources.mk
 -include Device/ST/STM32F4xx/Source/Templates/gcc/subdir.mk
 -include Device/ST/STM32F4xx/Source/Templates/subdir.mk
--include subdir.mk
+-include .metadata/.plugins/org.eclipse.cdt.managedbuilder.core/subdir.mk
+-include .metadata/.plugins/org.eclipse.cdt.make.core/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -58,7 +59,7 @@ libCMSIS.a: $(OBJS) $(USER_OBJS) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(ARCHIVES)$(S_DEPS)$(S_UPPER_DEPS)$(C_DEPS) libCMSIS.a
+	-$(RM) libCMSIS.a
 	-@echo ' '
 
 secondary-outputs:
@@ -70,6 +71,6 @@ fail-specified-linker-script-missing:
 warn-no-linker-script-specified:
 	@echo 'Warning: No linker script specified. Check the linker settings in the build configuration.'
 
-.PHONY: all clean dependents fail-specified-linker-script-missing warn-no-linker-script-specified
+.PHONY: all clean dependents main-build fail-specified-linker-script-missing warn-no-linker-script-specified
 
 -include ../makefile.targets

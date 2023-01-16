@@ -1,0 +1,70 @@
+14:22:47 **** Build of configuration Debug for project MCAL ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/MCAL.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -c -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Inc" -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/MCAL.d" -MT"Src/MCAL.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/MCAL.o"
+arm-none-eabi-gcc "../Src/mcalDMAC.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -c -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Inc" -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/mcalDMAC.d" -MT"Src/mcalDMAC.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/mcalDMAC.o"
+arm-none-eabi-gcc "../Src/mcalEXTI.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -c -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Inc" -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/mcalEXTI.d" -MT"Src/mcalEXTI.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/mcalEXTI.o"
+arm-none-eabi-gcc "../Src/mcalGPIO.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -c -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Inc" -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/mcalGPIO.d" -MT"Src/mcalGPIO.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/mcalGPIO.o"
+arm-none-eabi-gcc "../Src/mcalI2C.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -c -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Inc" -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/mcalI2C.d" -MT"Src/mcalI2C.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/mcalI2C.o"
+arm-none-eabi-gcc "../Src/mcalSPI.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -c -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Inc" -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/mcalSPI.d" -MT"Src/mcalSPI.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/mcalSPI.o"
+arm-none-eabi-gcc "../Src/mcalSysTick.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -c -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Inc" -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/mcalSysTick.d" -MT"Src/mcalSysTick.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/mcalSysTick.o"
+arm-none-eabi-gcc "../Src/mcalSystem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -c -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Inc" -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/mcalSystem.d" -MT"Src/mcalSystem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/mcalSystem.o"
+arm-none-eabi-gcc "../Src/mcalTimer.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -c -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Inc" -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/mcalTimer.d" -MT"Src/mcalTimer.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/mcalTimer.o"
+arm-none-eabi-gcc "../Src/mcalUsart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -c -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Inc" -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/mcalUsart.d" -MT"Src/mcalUsart.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/mcalUsart.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -c -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Inc" -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -c -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Inc" -I"D:/Projekte/tellur/01_Software_ECU/MCAL/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+In file included from ../Src/mcalDMAC.c:9:
+D:/Projekte/tellur/01_Software_ECU/MCAL/Inc/mcalDMAC.h:12:10: fatal error: stm32f4xx.h: No such file or directory
+   12 | #include <stm32f4xx.h>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+In file included from ../Src/mcalEXTI.c:9:
+D:/Projekte/tellur/01_Software_ECU/MCAL/Inc/mcalEXTI.h:12:10: fatal error: stm32f4xx.h: No such file or directory
+   12 | #include <stm32f4xx.h>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+In file included from ../Src/mcalGPIO.c:8:
+D:/Projekte/tellur/01_Software_ECU/MCAL/Inc/mcalGPIO.h:12:10: fatal error: stm32f4xx.h: No such file or directory
+   12 | #include <stm32f4xx.h>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+../Src/mcalI2C.c:9:10: fatal error: stm32f4xx.h: No such file or directory
+    9 | #include <stm32f4xx.h>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+In file included from ../Src/mcalSPI.c:9:
+D:/Projekte/tellur/01_Software_ECU/MCAL/Inc/mcalGPIO.h:12:10: fatal error: stm32f4xx.h: No such file or directory
+   12 | #include <stm32f4xx.h>
+      |          ^~~~~~~~~~~~~
+In file included from ../Src/mcalTimer.c:15:
+D:/Projekte/tellur/01_Software_ECU/MCAL/Inc/mcalTimer.h:13:10: fatal error: stm32f4xx.h: No such file or directory
+   13 | #include <stm32f4xx.h>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+../Src/mcalSystem.c:101:10: fatal error: stm32f4xx.h: No such file or directory
+  101 | #include <stm32f4xx.h>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+compilation terminated.
+make: *** [Src/subdir.mk:52: Src/mcalDMAC.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Src/mcalSysTick.c:10:10: fatal error: stm32f4xx.h: No such file or directory
+   10 | #include <stm32f4xx.h>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+make: *** [Src/subdir.mk:52: Src/mcalI2C.o] Error 1
+make: *** [Src/subdir.mk:52: Src/mcalEXTI.o] Error 1
+make: *** [Src/subdir.mk:52: Src/mcalGPIO.o] Error 1
+make: *** [Src/subdir.mk:52: Src/mcalTimer.o] Error 1
+In file included from ../Src/mcalUsart.c:24:
+D:/Projekte/tellur/01_Software_ECU/MCAL/Inc/mcalUsart.h:27:10: fatal error: stm32f4xx.h: No such file or directory
+   27 | #include <stm32f4xx.h>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+make: *** [Src/subdir.mk:52: Src/mcalSPI.o] Error 1
+make: *** [Src/subdir.mk:52: Src/mcalSystem.o] Error 1
+make: *** [Src/subdir.mk:52: Src/mcalSysTick.o] Error 1
+make: *** [Src/subdir.mk:52: Src/mcalUsart.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+
+14:22:47 Build Failed. 19 errors, 0 warnings. (took 216ms)
+

@@ -1,7 +1,7 @@
-mcalI2C.c:50:8:i2cInit	24	static
-mcalI2C.c:106:8:i2cSendByte	16	static
-mcalI2C.c:143:8:i2cSendByteToSlaveReg	16	static
-mcalI2C.c:184:8:i2cBurstWrite	32	static
-mcalI2C.c:229:8:i2cReadByte	24	static
-mcalI2C.c:279:8:i2cReadByteFromSlaveReg	24	static
-mcalI2C.c:327:8:i2cBurstRead	24	static
+../Src/mcalI2C.c:50:8:i2cInit	24	static
+../Src/mcalI2C.c:106:8:i2cSendByte	16	static
+../Src/mcalI2C.c:143:8:i2cSendByteToSlaveReg	16	static
+../Src/mcalI2C.c:184:8:i2cBurstWrite	32	static
+../Src/mcalI2C.c:229:8:i2cReadByte	24	static
+../Src/mcalI2C.c:279:8:i2cReadByteFromSlaveReg	24	static
+../Src/mcalI2C.c:327:8:i2cBurstRead	24	static

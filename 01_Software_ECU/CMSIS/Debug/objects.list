@@ -1,3 +1,5 @@
+"./.metadata/.plugins/org.eclipse.cdt.make.core/specs.o"
+"./.metadata/.plugins/org.eclipse.cdt.managedbuilder.core/spec.o"
 "./Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xc.o"
 "./Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.o"
 "./Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f405xx.o"

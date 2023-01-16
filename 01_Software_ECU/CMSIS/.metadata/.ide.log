@@ -1,0 +1,11 @@
+2023-01-06 14:14:54,540 [INFO] Activator:177 - 
+
+
+2023-01-06 14:14:54,540 [INFO] Activator:178 - !SESSION log4j initialized
+2023-01-06 14:24:42,303 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] Warning: NLS missing message: ExternalToolsPreferencePage_External_tool_project_builders_migration_2 in: org.eclipse.ui.externaltools.internal.ui.ExternalToolsUIMessages
+2023-01-06 14:24:42,305 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] Warning: NLS missing message: ExternalToolsPreferencePage_Prompt_before_migrating_3 in: org.eclipse.ui.externaltools.internal.ui.ExternalToolsUIMessages
+2023-01-06 14:24:42,307 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] Warning: NLS missing message: ExternalToolsPreferencePage_1 in: org.eclipse.ui.externaltools.internal.ui.ExternalToolsUIMessages
+2023-01-06 14:28:24,621 [INFO] Activator:177 - 
+
+
+2023-01-06 14:28:24,622 [INFO] Activator:178 - !SESSION log4j initialized
