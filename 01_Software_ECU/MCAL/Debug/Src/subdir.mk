@@ -5,43 +5,43 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/MCAL.c \
+../Src/mcalADC.c \
 ../Src/mcalDMAC.c \
 ../Src/mcalEXTI.c \
+../Src/mcalFlash.c \
 ../Src/mcalGPIO.c \
 ../Src/mcalI2C.c \
+../Src/mcalRCC.c \
 ../Src/mcalSPI.c \
 ../Src/mcalSysTick.c \
-../Src/mcalSystem.c \
-../Src/mcalTimer.c \
 ../Src/mcalUsart.c \
 ../Src/syscalls.c \
 ../Src/sysmem.c 
 
 OBJS += \
-./Src/MCAL.o \
+./Src/mcalADC.o \
 ./Src/mcalDMAC.o \
 ./Src/mcalEXTI.o \
+./Src/mcalFlash.o \
 ./Src/mcalGPIO.o \
 ./Src/mcalI2C.o \
+./Src/mcalRCC.o \
 ./Src/mcalSPI.o \
 ./Src/mcalSysTick.o \
-./Src/mcalSystem.o \
-./Src/mcalTimer.o \
 ./Src/mcalUsart.o \
 ./Src/syscalls.o \
 ./Src/sysmem.o 
 
 C_DEPS += \
-./Src/MCAL.d \
+./Src/mcalADC.d \
 ./Src/mcalDMAC.d \
 ./Src/mcalEXTI.d \
+./Src/mcalFlash.d \
 ./Src/mcalGPIO.d \
 ./Src/mcalI2C.d \
+./Src/mcalRCC.d \
 ./Src/mcalSPI.d \
 ./Src/mcalSysTick.d \
-./Src/mcalSystem.d \
-./Src/mcalTimer.d \
 ./Src/mcalUsart.d \
 ./Src/syscalls.d \
 ./Src/sysmem.d 
@@ -54,7 +54,7 @@ Src/%.o Src/%.su: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/MCAL.d ./Src/MCAL.o ./Src/MCAL.su ./Src/mcalDMAC.d ./Src/mcalDMAC.o ./Src/mcalDMAC.su ./Src/mcalEXTI.d ./Src/mcalEXTI.o ./Src/mcalEXTI.su ./Src/mcalGPIO.d ./Src/mcalGPIO.o ./Src/mcalGPIO.su ./Src/mcalI2C.d ./Src/mcalI2C.o ./Src/mcalI2C.su ./Src/mcalSPI.d ./Src/mcalSPI.o ./Src/mcalSPI.su ./Src/mcalSysTick.d ./Src/mcalSysTick.o ./Src/mcalSysTick.su ./Src/mcalSystem.d ./Src/mcalSystem.o ./Src/mcalSystem.su ./Src/mcalTimer.d ./Src/mcalTimer.o ./Src/mcalTimer.su ./Src/mcalUsart.d ./Src/mcalUsart.o ./Src/mcalUsart.su ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+	-$(RM) ./Src/mcalADC.d ./Src/mcalADC.o ./Src/mcalADC.su ./Src/mcalDMAC.d ./Src/mcalDMAC.o ./Src/mcalDMAC.su ./Src/mcalEXTI.d ./Src/mcalEXTI.o ./Src/mcalEXTI.su ./Src/mcalFlash.d ./Src/mcalFlash.o ./Src/mcalFlash.su ./Src/mcalGPIO.d ./Src/mcalGPIO.o ./Src/mcalGPIO.su ./Src/mcalI2C.d ./Src/mcalI2C.o ./Src/mcalI2C.su ./Src/mcalRCC.d ./Src/mcalRCC.o ./Src/mcalRCC.su ./Src/mcalSPI.d ./Src/mcalSPI.o ./Src/mcalSPI.su ./Src/mcalSysTick.d ./Src/mcalSysTick.o ./Src/mcalSysTick.su ./Src/mcalUsart.d ./Src/mcalUsart.o ./Src/mcalUsart.su ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
 
 .PHONY: clean-Src
 

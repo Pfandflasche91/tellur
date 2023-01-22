@@ -1,7 +1,11 @@
 D:/Projekte/tellur/01_Software_ECU/CMSIS/Include/core_cm4.h:1816:22:__NVIC_SetPriority	16	static
 D:/Projekte/tellur/01_Software_ECU/CMSIS/Include/core_cm4.h:2022:26:SysTick_Config	16	static
-../Src/mcalSysTick.c:27:6:systickInit	16	static
-../Src/mcalSysTick.c:41:6:systickSetMillis	16	static
-../Src/mcalSysTick.c:53:6:isSystickExpired	24	static
-../Src/mcalSysTick.c:71:6:SysTick_Handler	4	static
-../Src/mcalSysTick.c:83:6:systickUpdateTimers	24	static
+../Src/mcalSysTick.c:70:6:systickSetMillis	16	static
+../Src/mcalSysTick.c:91:6:systickSetMicros	16	static
+../Src/mcalSysTick.c:107:6:systickInit	16	static
+../Src/mcalSysTick.c:125:6:systickSetTicktime	16	static
+../Src/mcalSysTick.c:138:6:isSystickExpired	24	static
+../Src/mcalSysTick.c:158:6:SysTick_Handler	4	static
+../Src/mcalSysTick.c:169:6:systickUpdateTimer	16	static
+../Src/mcalSysTick.c:189:6:systickUpdateTimerList	24	static
+../Src/mcalSysTick.c:216:6:systickDelay	16	static

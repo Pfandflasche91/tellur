@@ -13,6 +13,29 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include <mcalGPIO.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/** @ingroup spi3 SPI Enumerations
+ * @{
+ */
+typedef enum
+{
+    SPI_OK                      =   0,
+    SPI_INVALID_SPI             = -80,
+    SPI_INVALID_CLOCK_DIVIDER   = -81,
+    SPI_INVALID_DATA_LENGTH     = -82,
+    SPI_INVALID_SW_SLV_MGMT     = -83,
+    SPI_INVALID_SLAVE_SELECTION = -84,
+    SPI_INVALID_SSI_LEVEL       = -85,
+    SPI_INVALID_OP_MODE         = -86,
+    SPI_INVALID_PHASE           = -87,
+    SPI_INVALID_IDLE_POLARITY   = -88
+} SPI_RETURN_CODE_t;
+
 typedef enum
 {
   MASTER,
@@ -79,18 +102,31 @@ typedef enum
     SPI_SEND_BYTE_2
 } SPI_8BIT_STATE_t;
 
-extern void spiInitSPI (SPI_TypeDef *spi, SPI_CLOCK_DIV_t div, SPI_DATALEN_t len,
-                        SPI_SSM_t ssm, SPI_SSI_LVL_t lvl, SPI_OPMODE_t opMode,
-                        SPI_PHASE_t phase, SPI_POLARITY_t polarity);
-extern void spiEnableSPI(SPI_TypeDef *spi);
-extern void spiDisableSPI(SPI_TypeDef *spi);
-extern void spiWriteByte(SPI_TypeDef *spi, GPIO_TypeDef *port, PIN_NUM pin, uint8_t data);
-extern void spiWriteWord(SPI_TypeDef *spi, GPIO_TypeDef *port, PIN_NUM pin, uint16_t data);
-extern void spiSendData(SPI_TypeDef *spi, GPIO_TypeDef *port, PIN_NUM pin, uint8_t reg, uint8_t data);
+/**
+ * @}
+ */
+
+// Deprecated functions
+
+// Supported functions
+extern SPI_RETURN_CODE_t spiSelectSPI(SPI_TypeDef *spi);
+extern SPI_RETURN_CODE_t spiDeselectSPI(SPI_TypeDef *spi);
+extern SPI_RETURN_CODE_t spiEnableSPI(SPI_TypeDef *spi);
+extern SPI_RETURN_CODE_t spiDisableSPI(SPI_TypeDef *spi);
+extern SPI_RETURN_CODE_t spiWriteByte(SPI_TypeDef *spi, GPIO_TypeDef *port, PIN_NUM_t pin, uint8_t data);
+extern SPI_RETURN_CODE_t spiWriteWord(SPI_TypeDef *spi, GPIO_TypeDef *port, PIN_NUM_t pin, uint16_t data);
+extern SPI_RETURN_CODE_t spiSendData(SPI_TypeDef *spi, GPIO_TypeDef *port, PIN_NUM_t pin, uint8_t reg, uint8_t data);
+extern SPI_RETURN_CODE_t spiInitSPI (SPI_TypeDef *spi, SPI_CLOCK_DIV_t div, SPI_DATALEN_t len,
+                                     SPI_SSM_t ssm, SPI_SSI_LVL_t lvl, SPI_OPMODE_t opMode,
+                                     SPI_PHASE_t phase, SPI_POLARITY_t polarity);
 
 // Noch nicht implementiert
-extern void spiReadByte(SPI_TypeDef *spi, uint8_t *data);
-extern void spiReadWord(SPI_TypeDef *spi, uint16_t *data);
+extern SPI_RETURN_CODE_t spiReadByte(SPI_TypeDef *spi, uint8_t *data);
+extern SPI_RETURN_CODE_t spiReadWord(SPI_TypeDef *spi, uint16_t *data);
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif /* MCALSPI_H_ */

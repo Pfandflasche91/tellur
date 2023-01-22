@@ -1,15 +1,83 @@
 /**
- * @brief Collection of EXTI-related functions
+ * @defgroup exti  External Interrupts (mcalEXTI.h/.c)
+ * @defgroup exti1 All EXTI Functions
+ * @ingroup  exti
+ * @defgroup exti2 EXTI Enumerations and Definitions
+ * @ingroup  exti
  *
- *  Created on: 16.07.2020
- *      Author: Ralf Jesse
- *       Email: embedded@ralf-jesse.de
+ * @file        mcalEXTI.c
+ * @brief       mcalEXTI.c is part of the MCAL library for STM32F4xx.
+ * @author      Dipl.-Ing. Ralf Jesse (embedded@ralf-jesse.de)
+ * @date        Nov. 12, 2020
+ *
+ * @version     0.1
+ * @copyright   GNU Public License Version 3 (GPLv3)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <mcalEXTI.h>
 
 /**
- * @brief Resets all EXTI settings
+ * Function to verify the integrity of the **irqNum** parameter.
+ *
+ * @param irqNum : Number of the EXTI interrupt (declared in maclEXTI.h)
+ */
+bool extiVerifyIrqNum(EXTI_IRQ_NUM irqNum)
+{
+    if ((EXTI_PIN0  == irqNum) || (EXTI_PIN1  == irqNum) || (EXTI_PIN2  == irqNum) || (EXTI_PIN3  == irqNum) ||
+        (EXTI_PIN4  == irqNum) || (EXTI_PIN5  == irqNum) || (EXTI_PIN6  == irqNum) || (EXTI_PIN7  == irqNum) ||
+        (EXTI_PIN8  == irqNum) || (EXTI_PIN9  == irqNum) || (EXTI_PIN10 == irqNum) || (EXTI_PIN11 == irqNum) ||
+        (EXTI_PIN12 == irqNum) || (EXTI_PIN13 == irqNum) || (EXTI_PIN14 == irqNum) || (EXTI_PIN15 == irqNum) ||
+        (EXTI_VOLTAGE_DETECTION == irqNum) || (EXTI_RTC_ALARM == irqNum)  || (EXTI_USB_OTG_FS == irqNum)     ||
+        (EXTI_USB_OTG_HS == irqNum)        || (EXTI_RTC_TAMPER == irqNum) || (EXTI_RTC_WAKEUP == irqNum))
+    {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Function to verify the integrity of the **trigger** parameter.
+ */
+bool extiVerifyTrigger(EXTI_TRIGGER trigger)
+{
+    if ((RISING_EDGE == trigger) || (FALLING_EDGE == trigger) || (RISING_AND_FALLING == trigger))
+    {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * @ingroup exti1
+ * Resets all EXTI settings
+ *
+ * <br>
+ * <b>Affected register and bit(s)</b><br>
+ * <table>
+ *      <tr>
+ *          <th>Register</th>
+ *          <th>Bit name</th>
+ *          <th>Bit(s)</th>
+ *      </tr>
+ *      <tr>
+ *          <td>EXTICR4/3/2/1</td>
+ *          <td rowspan="1">EXTI0...EXTI15</td>
+ *          <td rowspan="1">15...0</td>
+ *      </tr>
+ * </table>
  */
 void extiInit(void)
 {
@@ -20,18 +88,42 @@ void extiInit(void)
 }
 
 /**
- * @brief Sets the selected EXTI according to the port/pin
+ * @ingroup exti1
+ * Sets the selected EXTI according to the port/pin
  *
- * @param[in]  *port : Pointer to the GPIO port
- * @param[in]   pin  : Number of the pin which shall be used as EXTI
+ * @param   *port : Pointer to the GPIO port
+ * @param    pin  : Number of the pin which shall be used as EXTI
+ * @return  EXTI_IRQ_NUM
  *
- * @param[out]  none
+ * <br>
+ * <b>Affected register and bit(s)</b><br>
+ * <table>
+ *      <tr>
+ *          <th>Register</th>
+ *          <th>Bit name</th>
+ *          <th>Bit(s)</th>
+ *      </tr>
+ *      <tr>
+ *          <td>EXTICR4/3/2/1</td>
+ *          <td rowspan="1">EXTI0...EXTI15</td>
+ *          <td rowspan="1">15...0</td>
+ *      </tr>
+ * </table>
  */
-void extiConfigIrq(GPIO_TypeDef *port, PIN_NUM pin)
+EXTI_IRQ_NUM extiConfigIrq(GPIO_TypeDef *port, PIN_NUM_t pin)
 {
     uint8_t index = 0;
     uint8_t shift = 0;
-    uint8_t mask;
+    uint8_t mask  = 0;
+
+    if (gpioVerifyPort(port) != true)
+    {
+        return GPIO_INVALID_PORT;
+    }
+    if ((gpioVerifyPin(pin)) != true)
+    {
+        return GPIO_INVALID_PIN;
+    }
 
     switch ((uint8_t) pin)
     {
@@ -55,8 +147,8 @@ void extiConfigIrq(GPIO_TypeDef *port, PIN_NUM pin)
         case PIN9:
         case PIN10:
         case PIN11:
-            index = 2;
             shift = (pin - 8) * 4;
+            index = 2;
             break;
 
         case PIN12:
@@ -102,39 +194,114 @@ void extiConfigIrq(GPIO_TypeDef *port, PIN_NUM pin)
     }
 
     SYSCFG->EXTICR[index] |= (mask << shift);
+
+    return EXTI_OK;
 }
 
 /**
- * @brief Enables an EXTI interrupt
+ * @ingroup exti1
+ * Enables an EXTI interrupt
  *
- * @param[in]  irqNum : One from 23 EXTI IRQs
- * @param[out] none
+ * @param   irqNum : One from 23 EXTI IRQs
+ * @return EXTI_IRQ_NUM none
+ *
+ * <br>
+ * <b>Affected register and bit(s)</b><br>
+ * <table>
+ *      <tr>
+ *          <th>Register</th>
+ *          <th>Bit name</th>
+ *          <th>Bit(s)</th>
+ *      </tr>
+ *      <tr>
+ *          <td>IMR</td>
+ *          <td rowspan="1">MR22...MR0</td>
+ *          <td rowspan="1">22...0</td>
+ *      </tr>
+ * </table>
  */
-void extiEnableIrq(EXTI_IRQ_NUM irqNum)
+EXTI_IRQ_NUM extiEnableIrq(EXTI_IRQ_NUM irqNum)
 {
+    if (extiVerifyIrqNum(irqNum) != true)
+    {
+        return EXTI_INVALID_IRQNUM;
+    }
     EXTI->IMR |= 1 << irqNum;
+    return EXTI_OK;
 }
 
 /**
- * @brief Disables an EXTI interrupt
+ * @ingroup exti1
+ * Disables an EXTI interrupt
  *
- * @param[in]  irqNum : One from 23 EXTI IRQs
- * @param[out] none
+ * @param   irqNum : One from 23 EXTI IRQs
+ * @return EXTI_IRQ_NUM
+ *
+ * <br>
+ * <b>Affected register and bit(s)</b><br>
+ * <table>
+ *      <tr>
+ *          <th>Register</th>
+ *          <th>Bit name</th>
+ *          <th>Bit(s)</th>
+ *      </tr>
+ *      <tr>
+ *          <td>IMR</td>
+ *          <td rowspan="1">MR22...MR0</td>
+ *          <td rowspan="1">22...0</td>
+ *      </tr>
+ * </table>
  */
-void extiDisableIrq(EXTI_IRQ_NUM irqNum)
+EXTI_IRQ_NUM extiDisableIrq(EXTI_IRQ_NUM irqNum)
 {
+    if (extiVerifyIrqNum(irqNum) != true)
+    {
+        return EXTI_INVALID_IRQNUM;
+    }
     EXTI->IMR &= ~(1 << irqNum);
+    return EXTI_OK;
 }
 
 /**
- * @brief Sets the trigger mode of the selected EXTI.
+ * @ingroup exti1
+ * Sets the trigger mode of the selected EXTI.
  *
- * @param[in]  irqNum  : One from 23 EXTI IRQs
- * @param[in]  trigger : rising only/falling only/rising + falling
- * @param[out] none
+ * @param   irqNum  : One from 23 EXTI IRQs
+ * @param   trigger : rising only/falling only/rising + falling
+ * @return EXTI_IRQ_NUM
+ *
+ * <br>
+ * <b>Affected register and bit(s)</b><br>
+ * <table>
+ *      <tr>
+ *          <th>Register</th>
+ *          <th>Bit name</th>
+ *          <th>Bit(s)</th>
+ *      </tr>
+ *      <tr>
+ *          <td>RTSR</td>
+ *          <td rowspan="1">TR22...TR0</td>
+ *          <td rowspan="1">22...0</td>
+ *      </tr>
+ *      <tr>
+ *          <td>FTSR</td>
+ *          <td rowspan="1">TF22...TF0</td>
+ *          <td rowspan="1">22...0</td>
+ *      </tr>
+ * </table>
  */
-void extiSetTriggerEdge(EXTI_IRQ_NUM irqNum, EXTI_TRIGGER trigger)
+EXTI_IRQ_NUM extiSetTriggerEdge(EXTI_IRQ_NUM irqNum, EXTI_TRIGGER trigger)
 {
+    if (extiVerifyIrqNum(irqNum) != true)
+    {
+        return EXTI_INVALID_IRQNUM;
+    }
+
+    if (extiVerifyTrigger(trigger) != true)
+    {
+        return EXTI_INVALID_TRIGGER;
+    }
+
     if (RISING_EDGE == trigger)
     {
         EXTI->RTSR |= 1 << irqNum;      // Enable rising edge
@@ -150,4 +317,31 @@ void extiSetTriggerEdge(EXTI_IRQ_NUM irqNum, EXTI_TRIGGER trigger)
         EXTI->RTSR |= 1 << irqNum;      // Enable rising edge
         EXTI->FTSR |= 1 << irqNum;      // Enable falling edge
     }
+    return EXTI_OK;
+}
+
+/**
+ * @ingroup exti1
+ * Resets the desired EXTI IRQ pending flag.
+ *
+ * @param   irqNum  : One from 23 EXTI IRQs
+ *
+ * <br>
+ * <b>Affected register and bit(s)</b><br>
+ * <table>
+ *      <tr>
+ *          <th>Register</th>
+ *          <th>Bit name</th>
+ *          <th>Bit(s)</th>
+ *      </tr>
+ *      <tr>
+ *          <td>PR</td>
+ *          <td rowspan="1">PR22...PR0</td>
+ *          <td rowspan="1">22...0</td>
+ *      </tr>
+ * </table>
+ */
+void extiResetPendingIRQ(EXTI_IRQ_NUM irqNum)
+{
+    EXTI->PR |= irqNum;
 }

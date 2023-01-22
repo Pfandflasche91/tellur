@@ -1,0 +1,17 @@
+../Src/mcalTimer/mcalTimer.c:89:6:timerSelectTimer	16	static
+../Src/mcalTimer/mcalTimer.c:178:6:timerDeselectTimer	16	static
+../Src/mcalTimer/mcalTimer.c:263:21:timerEnableAutoReloadPreload	16	static
+../Src/mcalTimer/mcalTimer.c:293:21:timerDisableAutoReloadPreload	16	static
+../Src/mcalTimer/mcalTimer.c:332:6:timerSetPrescaler	16	static
+../Src/mcalTimer/mcalTimer.c:365:10:timerGetPrescaler	16	static
+../Src/mcalTimer/mcalTimer.c:398:6:timerSetAutoReloadValue	16	static
+../Src/mcalTimer/mcalTimer.c:442:10:timerGetAutoReloadValue	16	static
+../Src/mcalTimer/mcalTimer.c:475:6:timerSetCounter	16	static
+../Src/mcalTimer/mcalTimer.c:510:10:timerGetCounter	16	static
+../Src/mcalTimer/mcalTimer.c:542:6:timerResetCounter	16	static
+../Src/mcalTimer/mcalTimer.c:570:6:timerStartTimer	16	static
+../Src/mcalTimer/mcalTimer.c:597:6:timerStopTimer	16	static
+../Src/mcalTimer/mcalTimer.c:625:21:timerEnableOneShot	16	static
+../Src/mcalTimer/mcalTimer.c:658:21:timerDisableOneShot	16	static
+../Src/mcalTimer/mcalTimer.c:692:21:timerGetOneShotMode	16	static
+../Src/mcalTimer/mcalTimer.c:729:21:timerSetCountingDir	16	static

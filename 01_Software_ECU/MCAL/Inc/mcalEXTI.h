@@ -16,6 +16,21 @@
 
 #include <mcalGPIO.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * @ingroup exti2
+ * @{
+ */
+typedef enum
+{
+    EXTI_OK                 =   0,
+    EXTI_INVALID_IRQNUM     = -40,
+    EXTI_INVALID_TRIGGER    = -41
+} EXTI_RETURNCODE_t;
+
 /**
  * @brief Enumeration of EXTI ports
  */
@@ -72,13 +87,26 @@ typedef enum
 } EXTI_TRIGGER;
 
 /**
+ * @}
+ */
+
+/**
  * Function prototypes
  */
 extern void extiInit(void);
-extern void extiConfigIrq(GPIO_TypeDef *port, PIN_NUM pin);
-extern void extiEnableIrq(EXTI_IRQ_NUM irqNum);
-extern void extiDisableIrq(EXTI_IRQ_NUM irqNum);
-extern void extiSetTriggerEdge(EXTI_IRQ_NUM irqNum, EXTI_TRIGGER trigger);
+extern EXTI_IRQ_NUM extiConfigIrq(GPIO_TypeDef *port, PIN_NUM_t pin);
+extern EXTI_IRQ_NUM extiEnableIrq(EXTI_IRQ_NUM irqNum);
+extern EXTI_IRQ_NUM extiDisableIrq(EXTI_IRQ_NUM irqNum);
+extern EXTI_IRQ_NUM extiSetTriggerEdge(EXTI_IRQ_NUM irqNum, EXTI_TRIGGER trigger);
+extern void         extiResetPendingIRQ(EXTI_IRQ_NUM irq);
+
+extern bool extiVerifyIrqNum(EXTI_IRQ_NUM irqNum);
+extern bool extiVerifyTrigger(EXTI_TRIGGER trigger);
+
+#ifdef __cplusplus
+}
+#endif
+
 
 
 #endif /* MCALEXTI_H_ */

@@ -1,0 +1,5 @@
+../Src/mcalTimer/advancedControl.c:38:21:timerSetRepetitionCounter	16	static
+../Src/mcalTimer/advancedControl.c:72:22:timerSetBreakAndDeadTime	16	static
+../Src/mcalTimer/advancedControl.c:104:21:timerBdtrClearRegister	16	static
+../Src/mcalTimer/advancedControl.c:137:21:timerBdtrEnableMainOutput	16	static
+../Src/mcalTimer/advancedControl.c:179:21:timerBdtrEnableBreakInput	16	static

@@ -29,13 +29,37 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include <mcalSystem.h>
+#include <mcalRCC.h>
 #include <mcalUsart.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * @ingroup usart4
+ * @{
+ */
 
 /**
  * Type definitions and enumerations
  */
 #define BUFFERSIZE  (128)
+
+typedef enum
+{
+    USART_OK                        = 0,
+    USART_INVALID_USART             = -100,
+    USART_INVALID_IRQ_TYPE          = -101,
+    USART_INVALID_PARITY            = -102,
+    USART_INVALID_WORDLEN           = -103,
+    USART_INVALID_NUM_STOP          = -104,
+    USART_INVALID_OVERSAMPLING_MODE = -105,
+    USART_INVALID_RX_ENABLE_MODE    = -1010,
+    USART_INVALID_TX_ENABLE_MODE    = -107,
+    USART_INVALID_DMA_TX_MODE       = -108,
+    USART_INVALID_DMA_RX_MODE       = -109
+} USART_RETURN_CODE_t;
 
 typedef struct
 {
@@ -138,60 +162,71 @@ typedef enum
 
 typedef enum
 {
-    // TODO: Konstanten noch nicht definiert
+    // TODO: Flow control constants not yet implemented
     NOT_YET_DEFINED
 } USART_FLOWCTRL_t;
 
 /**
+ * @}
+ */
+
+/**
  * Variables
  */
-USART_BUFFER_t  *receiveBuffer;
-USART_BUFFER_t  *transmitBuffer;
+//USART_BUFFER_t  *receiveBuffer;
+//USART_BUFFER_t  *transmitBuffer;
 
 /**
  * Prototypes
  */
 
 /* General UART/USART activities */
-extern void usartSelectUsart(USART_TypeDef *usart);
-extern void usartDeselectUsart(USART_TypeDef *usart);
-extern void usartEnableUsart(USART_TypeDef *usart);
-extern void usartDisableUsart(USART_TypeDef *usart);
+extern USART_RETURN_CODE_t usartSelectUsart(USART_TypeDef *usart);
+extern USART_RETURN_CODE_t usartDeselectUsart(USART_TypeDef *usart);
+extern USART_RETURN_CODE_t usartEnableUsart(USART_TypeDef *usart);
+extern USART_RETURN_CODE_t usartDisableUsart(USART_TypeDef *usart);
 
 
-extern void usartPushDataToBuffer(USART_TypeDef *device, uint16_t data);
+extern USART_RETURN_CODE_t usartPushDataToBuffer(USART_TypeDef *device, uint16_t data);
 
 /* USART buffer */
 extern void usartInitBuffer(void);
-extern void usartSendString(USART_TypeDef *usart, char *data);
+extern USART_RETURN_CODE_t usartSendByte(USART_TypeDef *usart, uint8_t byte);
+extern USART_RETURN_CODE_t usartSendString(USART_TypeDef *usart, char *data);
 
 /* Communication parameters */
-extern void usartSetCommParams(USART_TypeDef *usart, uint32_t baudrate,
+extern USART_RETURN_CODE_t usartSetCommParams(USART_TypeDef *usart, uint32_t baudrate,
                                USART_PARITY parity, USART_WORDLEN len,
                                USART_STOPBITS stop);
-extern void usartSetBaudrate(USART_TypeDef *usart, uint32_t baudrate);
-extern void usartSetWordlength(USART_TypeDef *usart, USART_WORDLEN len);
-extern void usartSetParity(USART_TypeDef *usart, USART_PARITY parity);
-extern void usartSetNumStopBits(USART_TypeDef *usart, USART_STOPBITS num);
-extern void usartSetOversampling(USART_TypeDef *usart, USART_OVER over);
-extern void usartEnableReceiver(USART_TypeDef *usart, USART_RX enable);
-extern void usartEnableTransmitter(USART_TypeDef *usart, USART_TX enable);
-extern void usartSetFlowCtrlMode(USART_TypeDef *usart, USART_FLOWCTRL_t flow);
+extern USART_RETURN_CODE_t usartSetBaudrate(USART_TypeDef *usart, uint32_t baudrate);
+extern USART_RETURN_CODE_t usartSetWordlength(USART_TypeDef *usart, USART_WORDLEN len);
+extern USART_RETURN_CODE_t usartSetParity(USART_TypeDef *usart, USART_PARITY parity);
+extern USART_RETURN_CODE_t usartSetNumStopBits(USART_TypeDef *usart, USART_STOPBITS num);
+extern USART_RETURN_CODE_t usartSetOversampling(USART_TypeDef *usart, USART_OVER over);
+extern USART_RETURN_CODE_t usartEnableReceiver(USART_TypeDef *usart, USART_RX enable);
+extern USART_RETURN_CODE_t usartEnableTransmitter(USART_TypeDef *usart, USART_TX enable);
+extern USART_RETURN_CODE_t usartSetFlowCtrlMode(USART_TypeDef *usart, USART_FLOWCTRL_t flow);
 
 /* Sending and receiving data */
-extern void usartGetByte(USART_TypeDef *usart, uint16_t byte);
+extern USART_RETURN_CODE_t usartGetByte(USART_TypeDef *usart, uint16_t byte);
 
 /* Interrupts */
-extern void usartEnableIrqList(USART_TypeDef *usart, USART_IRQ_TYPES *irqList);
-extern void usartEnableIrq(USART_TypeDef *usart, USART_IRQ_TYPES irqType);
-extern void usartDisableIrq(USART_TypeDef *usart, USART_IRQ_TYPES irqType);
-extern void usartResetIrqFlag(USART_TypeDef *usart, USART_IRQ_FLAG_t irqFlag);
+extern USART_RETURN_CODE_t usartEnableIrqList(USART_TypeDef *usart, USART_IRQ_TYPES *irqList, uint8_t size);
+extern USART_RETURN_CODE_t usartEnableIrq(USART_TypeDef *usart, USART_IRQ_TYPES irqType);
+extern USART_RETURN_CODE_t usartDisableIrq(USART_TypeDef *usart, USART_IRQ_TYPES irqType);
+extern USART_RETURN_CODE_t usartResetIrqFlag(USART_TypeDef *usart, USART_IRQ_FLAG_t irqFlag);
 
 /* DMA */
-extern void usartSetDmaTxMode(USART_TypeDef *usart, USART_DMA_TXMODE_t dmaMode);
-extern void usartSetDmaRxMode(USART_TypeDef *usart, USART_DMA_RXMode_t dmaMode);
+extern USART_RETURN_CODE_t usartSetDmaTxMode(USART_TypeDef *usart, USART_DMA_TXMODE_t dmaMode);
+extern USART_RETURN_CODE_t usartSetDmaRxMode(USART_TypeDef *usart, USART_DMA_RXMode_t dmaMode);
 
 /* Deprecated */
-extern void usartStartUsart(USART_TypeDef *usart);
+extern USART_RETURN_CODE_t usartStartUsart(USART_TypeDef *usart);
+
+#ifdef __cplusplus
+}
+#endif
+
+
 
 #endif /* MCALUSART_H_ */

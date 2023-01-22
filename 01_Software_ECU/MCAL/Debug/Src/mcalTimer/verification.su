@@ -1,0 +1,8 @@
+../Src/mcalTimer/verification.c:11:6:timerVerifyChannelNum	16	static
+../Src/mcalTimer/verification.c:23:6:timerVerifyIrqAssignment	16	static
+../Src/mcalTimer/verification.c:62:6:timerVerifyDmaAssignment	16	static
+../Src/mcalTimer/verification.c:76:6:timerVerifyCaptureCompareChannelAssignment	16	static
+../Src/mcalTimer/verification.c:102:6:timerVerifyTimerMSM	16	static
+../Src/mcalTimer/verification.c:116:6:timerVerifyTimerTriggerActionType	16	static
+../Src/mcalTimer/verification.c:128:6:timerVerifyTimerTrigger	16	static
+../Src/mcalTimer/verification.c:142:6:timerVerifyDmaBurstStartingRegister	16	static
