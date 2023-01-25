@@ -49,10 +49,15 @@ float setpoint = 1.0f;
 RCFilter rcfilter;
 //srand(time(NULL));
 
+void TIM6_DAC_IRQHandler(void);
+
 int main(void)
 {
 	TIM_TypeDef  *tim  = TIM11;
 	TIM_TypeDef  *tim_10  = TIM10;
+	TIM_TypeDef  *tim_9  = TIM9;
+
+	TIM_TypeDef  *tim_6  = TIM6;
 	uint32_t      preloadVal = 4500UL;
 	bool          direction  = 1;
 
@@ -63,9 +68,34 @@ int main(void)
 	gpioSelectPinMode(GPIOB, PIN9, ALTFUNC);
 	gpioSelectAltFunc(GPIOB, PIN9, AF3);
 
-	gpioSelectPort(GPIOB);
 	gpioSelectPinMode(GPIOB, PIN8, ALTFUNC);
 	gpioSelectAltFunc(GPIOB, PIN8, AF3);
+
+	gpioSelectPinMode(GPIOA, PIN2, ALTFUNC);
+	gpioSelectAltFunc(GPIOA, PIN2, AF3);
+
+
+	// TIM6: Konfiguration
+	timerSelectTimer(tim_6);
+	timerSetPrescaler(tim_6, 0);
+	timerSetAutoReloadValue(tim_6, 9000);
+	timerResetCounter(tim_6);
+
+	//timerSetOutputCompareMode(tim_6, TIMIO_CH1, CHN_PWM_MODE_1);
+	//timerSetPreloadValue(tim_6, TIMIO_CH1, preloadVal);
+	//timerEnableCaptureCompareChannel(tim_6, TIMIO_CH1);
+	timerStartTimer(tim_6);
+
+	// TIM9: Konfiguration
+	timerSelectTimer(tim_9);
+	timerSetPrescaler(tim_9, 0);
+	timerSetAutoReloadValue(tim_9, 9000);
+	timerResetCounter(tim_9);
+
+	timerSetOutputCompareMode(tim_9, TIMIO_CH1, CHN_PWM_MODE_1);
+	timerSetPreloadValue(tim_9, TIMIO_CH1, preloadVal);
+	timerEnableCaptureCompareChannel(tim_9, TIMIO_CH1);
+	timerStartTimer(tim_9);
 
 	// TIM10: Konfiguration
 	timerSelectTimer(tim_10);
@@ -78,7 +108,7 @@ int main(void)
 	timerEnableCaptureCompareChannel(tim_10, TIMIO_CH1);
 	timerStartTimer(tim_10);
 
-	// TIM2: Konfiguration
+	// TIM11: Konfiguration
 	timerSelectTimer(tim);
 	timerSetPrescaler(tim, 0);
 	timerSetAutoReloadValue(tim, 9000);
@@ -88,6 +118,7 @@ int main(void)
 	timerSetPreloadValue(tim, TIMIO_CH1, preloadVal);
 	timerEnableCaptureCompareChannel(tim, TIMIO_CH1);
 	timerStartTimer(tim);
+
 
 	uint32_t pin0Timer = 0UL;
 	uint32_t pin1Timer = 0UL;
@@ -172,7 +203,7 @@ int main(void)
 					 direction = 1;
 				 }
 			 }
-			 gpioTogglePin(GPIOA,PIN0);
+			// gpioTogglePin(GPIOA,PIN0);
 			 systickSetTicktime(&pin0Timer, 100);
 		 }
 
@@ -183,6 +214,11 @@ int main(void)
 		 }
 
 	 }
+}
+
+void TIM6_DAC_IRQHandler (void)
+{
+	gpioTogglePin(GPIOA, PIN0);
 }
 
 void configClock(void)
