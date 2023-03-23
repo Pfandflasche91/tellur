@@ -1,4 +1,4 @@
-20543638215056962
+20552035948815811
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -86135,9 +86135,23 @@ varistor
 2
 2
 max_KiCAD_lib
+15u_inductor
+SRR1050A-4R2Y
+Inductor
+0
+2
+2
+max_KiCAD_lib
 33uH_wuerth_7447706330
 
 
+0
+2
+2
+max_KiCAD_lib
+68uFcap
+6.3*7
+Capacitor Polarised
 0
 2
 2
@@ -86205,6 +86219,13 @@ HRS_FX10A-168S-SV
 170
 170
 max_KiCAD_lib
+LM2675N
+DIP-08
+Integrated Circuit
+0
+8
+8
+max_KiCAD_lib
 LVS505020-150M-N
 
 
@@ -86257,6 +86278,20 @@ max_KiCAD_lib
 X322512MSB4SI
 X322512MSB4SI-2
 Crystal or Oscillator
+0
+4
+4
+max_KiCAD_lib
+schottydiode50V
+SMA(W)
+Schottky Diode
+0
+2
+2
+max_KiCAD_lib
+screwconnector_4_wuerth
+691241610004-1
+Connector
 0
 4
 4
