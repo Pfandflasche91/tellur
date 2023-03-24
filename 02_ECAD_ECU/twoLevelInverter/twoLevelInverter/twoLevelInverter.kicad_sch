@@ -2575,7 +2575,7 @@
     (property "Value" "24V" (id 1) (at 151.13 179.0066 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "LED_SMD:LED_1206_3216Metric" (id 2) (at 153.67 180.34 90)
+    (property "Footprint" "LED_SMD:LED_0805_2012Metric" (id 2) (at 153.67 180.34 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 153.67 180.34 90)
@@ -3143,7 +3143,7 @@
       (reference "C19") (unit 1) (value "68 uF") (footprint "max_KiCAD_lib:68uFcap")
     )
     (path "/ad3114b9-2c32-4326-8bbc-e373921bee11"
-      (reference "D1") (unit 1) (value "24V") (footprint "LED_SMD:LED_1206_3216Metric")
+      (reference "D1") (unit 1) (value "24V") (footprint "LED_SMD:LED_0805_2012Metric")
     )
     (path "/e553575e-0067-4ab5-b453-29a30e175400/db62a153-afe2-405a-b63d-42a0ac7372e4"
       (reference "D2") (unit 1) (value "1A/100V") (footprint "Diode_SMD:D_SOD-323")
@@ -3296,13 +3296,13 @@
       (reference "R28") (unit 1) (value "1k5") (footprint "Resistor_SMD:R_1206_3216Metric")
     )
     (path "/e553575e-0067-4ab5-b453-29a30e175400/91d46892-a81d-4160-bad4-2aec99acb506"
-      (reference "U1") (unit 1) (value "5V") (footprint "LED_SMD:LED_1206_3216Metric")
+      (reference "U1") (unit 1) (value "5V") (footprint "LED_SMD:LED_0805_2012Metric")
     )
     (path "/e553575e-0067-4ab5-b453-29a30e175400/53da76c1-3035-40bc-8b60-6180b9962a37"
       (reference "U2") (unit 1) (value "1k") (footprint "Resistor_SMD:R_1206_3216Metric")
     )
     (path "/e5267c2d-04cf-4f91-8cc8-fffe6b501613/1aa11fbd-fd99-4d92-b287-9585558e457c"
-      (reference "U14") (unit 1) (value "3V3") (footprint "LED_SMD:LED_1206_3216Metric")
+      (reference "U14") (unit 1) (value "3V3") (footprint "LED_SMD:LED_0805_2012Metric")
     )
     (path "/e5267c2d-04cf-4f91-8cc8-fffe6b501613/47c83a27-48b8-49c8-88e0-89bbac668535"
       (reference "U15") (unit 1) (value "1k") (footprint "Resistor_SMD:R_1206_3216Metric")

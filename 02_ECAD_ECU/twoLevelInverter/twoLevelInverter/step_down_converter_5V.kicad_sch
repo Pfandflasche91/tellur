@@ -911,7 +911,7 @@
     (property "Value" "5V" (id 1) (at 245.618 91.313 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "LED_SMD:LED_1206_3216Metric" (id 2) (at 243.84 90.17 90)
+    (property "Footprint" "LED_SMD:LED_0805_2012Metric" (id 2) (at 243.84 90.17 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 243.84 90.17 90)

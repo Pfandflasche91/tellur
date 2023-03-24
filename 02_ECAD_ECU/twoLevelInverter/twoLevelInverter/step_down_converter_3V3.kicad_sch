@@ -641,7 +641,7 @@
     (property "Value" "3V3" (id 1) (at 225.298 92.583 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "LED_SMD:LED_1206_3216Metric" (id 2) (at 223.52 91.44 90)
+    (property "Footprint" "LED_SMD:LED_0805_2012Metric" (id 2) (at 223.52 91.44 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 223.52 91.44 90)
