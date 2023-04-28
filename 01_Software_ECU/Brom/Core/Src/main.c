@@ -28,6 +28,7 @@
 #include "time.h"
 #include "stdlib.h"
 #include "measurement.h"
+#include "USBcom.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -51,14 +52,10 @@ TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim5;
 
+UART_HandleTypeDef huart3;
+
 /* USER CODE BEGIN PV */
-uint32_t encoder ;
-float rpm;
-float duty_cycle_ch1 = 500;
-float duty_cycle_ch2 = 1500;
-float duty_cycle_ch4 = 2000;
-uint32_t counter_value = 0;
-float counter = 0;
+
 
 /* USER CODE END PV */
 
@@ -69,91 +66,14 @@ static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_TIM5_Init(void);
+static void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-#define TIMClock 72000000
-#define PRESCALER 7200
 
-uint32_t IC_Val1 = 0;
-uint32_t IC_Val2 = 0;
-uint32_t Difference = 0;
-int Is_First_Captured = 0;
-
-uint32_t IC_Val1_2 = 0;
-uint32_t IC_Val2_2 = 0;
-uint32_t Difference_2 = 0;
-int Is_First_Captured_2 = 0;
-
-uint32_t IC_Val1_3 = 0;
-uint32_t IC_Val2_3 = 0;
-uint32_t Difference_3 = 0;
-int Is_First_Captured_3 = 0;
-
-float frequency = 0;
-float frequency_2 = 0;
-float frequency_3= 0;
-
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
-{
-	if ( htim -> Channel == HAL_TIM_ACTIVE_CHANNEL_1)
-	{
-		if (Is_First_Captured == 0 )
-		{
-			IC_Val1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-			Is_First_Captured = 1;
-		}
-		else
-		{
-			IC_Val2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-			if (IC_Val2 > IC_Val1)
-			{
-				Difference = IC_Val2 -IC_Val1;
-			}
-			else if (IC_Val1 > IC_Val2)
-			{
-				Difference = (0xffff - IC_Val1) + IC_Val2;
-			}
-
-			float refClock = TIMClock/PRESCALER;
-
-			frequency = refClock/Difference;
-
-			__HAL_TIM_SET_COUNTER(htim,0);
-			Is_First_Captured = 0;
-		}
-	}else if (htim -> Channel == HAL_TIM_ACTIVE_CHANNEL_2)
-	{
-		if (Is_First_Captured == 0 )
-				{
-					IC_Val1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-					Is_First_Captured = 1;
-				}
-				else
-				{
-					IC_Val2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-					if (IC_Val2 > IC_Val1)
-					{
-						Difference = IC_Val2 -IC_Val1;
-					}
-					else if (IC_Val1 > IC_Val2)
-					{
-						Difference = (0xffff - IC_Val1) + IC_Val2;
-					}
-
-					float refClock = TIMClock/PRESCALER;
-
-					frequency = refClock/Difference;
-
-					__HAL_TIM_SET_COUNTER(htim,0);
-					Is_First_Captured = 0;
-				}
-	}
-}
-measurement_data measurement;
 /* USER CODE END 0 */
 
 /**
@@ -163,9 +83,6 @@ measurement_data measurement;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	char uart_buf[50];
-	int uart_buf_len;
-	uint16_t timer_val;
 
   /* USER CODE END 1 */
 
@@ -175,7 +92,8 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  char  txBuf[8];
+  uint8_t count = 1 ;
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -187,14 +105,15 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USB_DEVICE_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_ADC1_Init();
   MX_TIM5_Init();
+  MX_USART3_UART_Init();
+  MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
-  uart_buf_len = sprintf(uart_buf, "Timer test\r\n");
-  //HAL_UART_Transmit(&huart3, (uint8_t *) uart_buf, uart_buf_len, 100);
+
+
 
   // STart timer
   	  srand(time(NULL));
@@ -224,8 +143,6 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  char txBuf[32];
-  uint8_t count = 1;
 
 
   while (1)
@@ -234,46 +151,22 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-
-	  // wait for 50 ms
-	  //HAL_Delay(50);
-	  //get time elapsed
+	  HAL_Delay(2000);
+	  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
 
-	  /*sprintf(txBuf, "%utest\r\n", count);
-	  count++;
-	  if (count > 100){
-		  count =1;
+	  sprintf(txBuf, "%u\r\n", count);
+	  count ++;
+	  if (count> 100){
+		  count = 1 ;
 	  }
 
+	  CDC_Transmit_FS((uint8_t *) txBuf, strlen(txBuf));
+	  write(9);
+	  //__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,duty_cycle_ch1);
+	  //__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_2,duty_cycle_ch2);
+	  //__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,duty_cycle_ch4);
 
-
-
-	  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-	  HAL_Delay(1000);*/
-
-
-
-	  //show elapsed time
-	  //uart_buf_len = sprintf(uart_buf, "%u us\r\n",timer_val);
-	  //CDC_Transmit_FS((uint8_t *) uart_buf, strlen(uart_buf));
-
-	  uart_buf_len = sprintf(uart_buf, "Iteration %i s\r\n", counter);
-	  CDC_Transmit_FS((uint8_t *) uart_buf, strlen(uart_buf));
-
-	  //HAL_UART_Transmit(&huart3, (uint8_t *) uart_buf, uart_buf_len, 100);
-	  counter += 1;
-	  if (counter == 100)
-	  {
-		  counter = 0;
-	  }
-	  HAL_Delay(1000);
-	  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-	  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,duty_cycle_ch1);
-	  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_2,duty_cycle_ch2);
-	  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,duty_cycle_ch4);
-
-	  counter_value = HAL_TIM_ReadCapturedValue(&htim3, TIM_CHANNEL_1);
 
 
   }
@@ -583,6 +476,39 @@ static void MX_TIM5_Init(void)
 }
 
 /**
+  * @brief USART3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART3_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART3_Init 0 */
+
+  /* USER CODE END USART3_Init 0 */
+
+  /* USER CODE BEGIN USART3_Init 1 */
+
+  /* USER CODE END USART3_Init 1 */
+  huart3.Instance = USART3;
+  huart3.Init.BaudRate = 115200;
+  huart3.Init.WordLength = UART_WORDLENGTH_8B;
+  huart3.Init.StopBits = UART_STOPBITS_1;
+  huart3.Init.Parity = UART_PARITY_NONE;
+  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART3_Init 2 */
+
+  /* USER CODE END USART3_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -590,6 +516,8 @@ static void MX_TIM5_Init(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
+/* USER CODE BEGIN MX_GPIO_Init_1 */
+/* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
@@ -601,7 +529,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(EN_5V_GPIO_Port, EN_5V_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10, GPIO_PIN_RESET);
@@ -613,20 +541,29 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PC9 */
-  GPIO_InitStruct.Pin = GPIO_PIN_9;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  /*Configure GPIO pin : EN_5V_Pin */
+  GPIO_InitStruct.Pin = EN_5V_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  HAL_GPIO_Init(EN_5V_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA8 PA9 PA10 */
-  GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10;
+  /*Configure GPIO pins : PA8 PA9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : PA10 */
+  GPIO_InitStruct.Pin = GPIO_PIN_10;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+/* USER CODE BEGIN MX_GPIO_Init_2 */
+/* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
@@ -644,7 +581,7 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 		{
 			duty_cycle = 10;
 		}
-		int r = rand() % (2400-1);
+
 		//__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,r);
 		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,duty_cycle);
 	}
@@ -652,34 +589,16 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 }
 void HAL_TIM_IC_CaptureHalfCpltCallback(TIM_HandleTypeDef *htim)
 {
-	float test = 1;
 
 }
 
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	int duty = 0;
 
-	if (htim == &htim2)
-	{
-		duty = 2;
-/*
-		if (duty<= __HAL_TIM_GET_COMPARE(&htim2,TIM_CHANNEL_1)){
-
-		}else
-		{
-			duty = 0;
-		}*/
-
-		//__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1000);
-	}
 }
 
-/*void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim){
-	encoder = __HAL_TIM_GET_COUNTER(&htim3);
-	__HAL_TIM_SET_COUNTER(&htim2,0);
-}
+
 /* USER CODE END 4 */
 
 /**
