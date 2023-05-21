@@ -24,11 +24,12 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "usbd_cdc_if.h"
+#include "string.h"
 #include "stdio.h"
 #include "time.h"
 #include "stdlib.h"
 #include "measurement.h"
-#include "USBcom.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,6 +75,8 @@ static void MX_USART3_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+
+uint8_t buffer[64];
 /* USER CODE END 0 */
 
 /**
@@ -92,8 +95,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  char  txBuf[8];
-  uint8_t count = 1 ;
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -140,7 +142,7 @@ int main(void)
   	  HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
 
   /* USER CODE END 2 */
-
+  	char *data = "Hello From STM32\n";
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
@@ -153,16 +155,9 @@ int main(void)
 
 	  HAL_Delay(2000);
 	  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+	  CDC_Transmit_FS((uint8_t *)data, strlen(data));
 
 
-	  sprintf(txBuf, "%u\r\n", count);
-	  count ++;
-	  if (count> 100){
-		  count = 1 ;
-	  }
-
-	  CDC_Transmit_FS((uint8_t *) txBuf, strlen(txBuf));
-	  write(9);
 	  //__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,duty_cycle_ch1);
 	  //__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_2,duty_cycle_ch2);
 	  //__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,duty_cycle_ch4);
