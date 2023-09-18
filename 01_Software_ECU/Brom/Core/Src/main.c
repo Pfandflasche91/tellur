@@ -74,7 +74,7 @@ static void MX_USART3_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void sendUSBData(const char *data, uint16_t length);
 
 uint8_t buffer[64];
 /* USER CODE END 0 */
@@ -143,6 +143,8 @@ int main(void)
 
   /* USER CODE END 2 */
   	char *data = "Hello From STM32\n";
+  	char message[50];
+  	uint32_t counter = 0;
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
@@ -153,9 +155,13 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
+	  snprintf(message, sizeof(message), "Hello From STM32: %lu\n", counter);
+	  sendUSBData(message, strlen(message));
+	  counter++;
+
 	  HAL_Delay(2000);
 	  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-	  CDC_Transmit_FS((uint8_t *)data, strlen(data));
+	  //CDC_Transmit_FS((uint8_t *)data, strlen(data));
 
 
 	  //__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,duty_cycle_ch1);
@@ -562,6 +568,14 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void sendUSBData(const char *data, uint16_t length) {
+    if (CDC_Transmit_FS((uint8_t *)data, length) == USBD_OK) {
+        // Data transmission was successful
+    } else {
+        // Data transmission failed
+    }
+}
+
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
 	int duty_cycle = 10;
