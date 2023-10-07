@@ -142,7 +142,7 @@ int main(void)
   	  HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
 
   /* USER CODE END 2 */
-  	char *data = "Hello From STM32\n";
+
   	char message[50];
   	uint32_t counter = 0;
   /* Infinite loop */
@@ -156,7 +156,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
 	  snprintf(message, sizeof(message), "Hello From STM32: %lu\n", counter);
-	  sendUSBData(message, strlen(message));
+	  //sendUSBData(message, strlen(message));
 	  counter++;
 
 	  HAL_Delay(2000);
@@ -606,6 +606,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 
 }
+
 
 
 /* USER CODE END 4 */

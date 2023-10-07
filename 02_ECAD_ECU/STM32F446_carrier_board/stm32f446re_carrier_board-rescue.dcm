@@ -1,3 +1,11 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP C10418-max_KiCAD_lib
+F https://datasheet.lcsc.com/szlcsc/Jing-Extension-of-the-Electronic-Co-LCSC-MICRO-USB-5S-B-Type-horns-High-temperature_C10418.pdf
+$ENDCMP
+#
+$CMP MP2303ADN-LF-max_KiCAD_lib
+F http://www.mouser.com/ds/2/277/MP2303A_r1.1-371783.pdf
+$ENDCMP
+#
 #End Doc Library

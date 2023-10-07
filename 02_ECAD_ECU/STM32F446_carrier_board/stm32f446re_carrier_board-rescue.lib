@@ -1,6 +1,21 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# +3.3V-power
+#
+DEF +3.3V-power #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -150 50 H I C CNN
+F1 "+3.3V-power" 0 140 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 2 0 1 0 -30 50 0 100 N
+P 2 0 1 0 0 0 0 100 N
+P 2 0 1 0 0 100 30 50 N
+X +3V3 1 0 0 0 U 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
 # C10418-max_KiCAD_lib
 #
 DEF C10418-max_KiCAD_lib J 0 30 Y Y 1 F N
@@ -23,6 +38,26 @@ X MH1 6 0 0 200 R 50 50 0 0 P
 X MH2 7 1200 0 200 L 50 50 0 0 P
 X MH3 8 300 -600 200 U 50 50 0 0 P
 X MH4 9 900 -600 200 U 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# CP1_Small-Device
+#
+DEF CP1_Small-Device C 0 10 N N 1 F N
+F0 "C" 10 70 50 H V L CNN
+F1 "CP1_Small-Device" 10 -80 50 H V L CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ CP_*
+$ENDFPLIST
+DRAW
+P 2 0 1 12 -60 20 60 20 N
+P 2 0 1 0 -50 60 -30 60 N
+P 2 0 1 0 -40 50 -40 70 N
+A 0 -140 125 614 1186 0 1 12 N 60 -30 -60 -30
+X ~ 1 0 100 80 D 50 50 1 1 P
+X ~ 2 0 -100 80 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -131,6 +166,27 @@ X 88 88 1000 -4200 200 L 50 50 0 0 P
 X 9 9 0 -800 200 R 50 50 0 0 P
 X MP1 MP1 1000 -4300 200 L 50 50 0 0 P
 X MP2 MP2 1000 -4400 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# Ferrite_Bead_Small-Device
+#
+DEF Ferrite_Bead_Small-Device FB 0 0 N Y 1 F N
+F0 "FB" 75 50 50 H V L CNN
+F1 "Ferrite_Bead_Small-Device" 75 -50 50 H V L CNN
+F2 "" -70 0 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Inductor_*
+ L_*
+ *Ferrite*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -50 0 -31 N
+P 2 0 1 0 0 35 0 51 N
+P 5 0 1 0 -72 11 -44 59 72 -8 44 -56 -72 11 N
+X ~ 1 0 100 50 D 50 50 1 1 P
+X ~ 2 0 -100 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
