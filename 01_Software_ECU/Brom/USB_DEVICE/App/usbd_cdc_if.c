@@ -20,6 +20,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc_if.h"
+#include "globals.h"
 
 /* USER CODE BEGIN INCLUDE */
 
@@ -51,6 +52,9 @@
 /* USER CODE BEGIN PRIVATE_TYPES */
 
 uint8_t buf[7];
+ControlState controlState = off;
+char commandline[250];
+
 
 /* USER CODE END PRIVATE_TYPES */
 
@@ -281,14 +285,10 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
   uint16_t len = *Len;
-  char message[50]= "I received:";
   char mes[50];
-  char end[50]="\n";
-  char result[100];
-  strncpy(mes,Buf,len);
+  strncpy(mes,(const char *)Buf,len);
   mes[len]='\0';
-  snprintf(result, sizeof(result),"%s%s%s",message,mes,end);
-  CDC_Transmit_FS(result,strlen(result));
+  interpretCommandoLine(mes, len);
   return (USBD_OK);
   /* USER CODE END 6 */
 }

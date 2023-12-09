@@ -29,6 +29,8 @@
 #include "time.h"
 #include "stdlib.h"
 #include "measurement.h"
+#include "control_state_machine.h"
+#include "globals.h"
 
 /* USER CODE END Includes */
 
@@ -52,6 +54,7 @@ ADC_HandleTypeDef hadc1;
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim5;
+TIM_HandleTypeDef htim14;
 
 UART_HandleTypeDef huart3;
 
@@ -68,15 +71,15 @@ static void MX_TIM3_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_TIM5_Init(void);
 static void MX_USART3_UART_Init(void);
+static void MX_TIM14_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void sendUSBData(const char *data, uint16_t length);
 
-uint8_t buffer[64];
+
 /* USER CODE END 0 */
 
 /**
@@ -86,6 +89,8 @@ uint8_t buffer[64];
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+	ControlStateMachine controlStateMachine;
+	controlStateMachine.currentState = off;
 
   /* USER CODE END 1 */
 
@@ -113,38 +118,31 @@ int main(void)
   MX_TIM5_Init();
   MX_USART3_UART_Init();
   MX_USB_DEVICE_Init();
+  MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
 
 
 
   // STart timer
-  	  srand(time(NULL));
-  	  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-  	  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_1);
-  	  HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_2);
+  srand(time(NULL));
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_2);
 
-  	  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
-  	  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_2);
-  	  HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_2);
 
-	  //HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
-  	  //HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_3);
-  	  //HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_3);
-
-	  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
-  	  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_4);
-  	  HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_4);
-
-  	  //HAL_TIM_PWM_Start_IT(&htim3, TIM_CHANNEL_1);
-  	  //HAL_TIM_OC_Start(&htim3, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
+  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_4);
+  HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_4);
 
 
-  	  HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
+  HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
+
 
   /* USER CODE END 2 */
 
-  	char message[50];
-  	uint32_t counter = 0;
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
@@ -155,20 +153,15 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  snprintf(message, sizeof(message), "Hello From STM32: %lu\n", counter);
-	  //sendUSBData(message, strlen(message));
-	  counter++;
+	  if (controlState == controlStateMachine.currentState)
+	  {
 
-	  HAL_Delay(2000);
+	  } else {
+		  transitionToState(&controlStateMachine, controlState);
+
+	  }
+	  HAL_Delay(1000);
 	  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-	  //CDC_Transmit_FS((uint8_t *)data, strlen(data));
-
-
-	  //__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,duty_cycle_ch1);
-	  //__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_2,duty_cycle_ch2);
-	  //__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,duty_cycle_ch4);
-
-
 
   }
   /* USER CODE END 3 */
@@ -477,6 +470,51 @@ static void MX_TIM5_Init(void)
 }
 
 /**
+  * @brief TIM14 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM14_Init(void)
+{
+
+  /* USER CODE BEGIN TIM14_Init 0 */
+
+  /* USER CODE END TIM14_Init 0 */
+
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM14_Init 1 */
+
+  /* USER CODE END TIM14_Init 1 */
+  htim14.Instance = TIM14;
+  htim14.Init.Prescaler = 0;
+  htim14.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim14.Init.Period = 65535;
+  htim14.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim14.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim14) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_Init(&htim14) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim14, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM14_Init 2 */
+
+  /* USER CODE END TIM14_Init 2 */
+
+}
+
+/**
   * @brief USART3 Initialization Function
   * @param None
   * @retval None
@@ -568,13 +606,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void sendUSBData(const char *data, uint16_t length) {
-    if (CDC_Transmit_FS((uint8_t *)data, length) == USBD_OK) {
-        // Data transmission was successful
-    } else {
-        // Data transmission failed
-    }
-}
+
 
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
