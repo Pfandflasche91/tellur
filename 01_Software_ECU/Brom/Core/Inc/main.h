@@ -56,6 +56,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
+void control(void);
 
 /* USER CODE END EFP */
 
@@ -64,8 +65,15 @@ void Error_Handler(void);
 #define LED_GPIO_Port GPIOA
 #define EN_5V_Pin GPIO_PIN_9
 #define EN_5V_GPIO_Port GPIOC
+#define HB3_INH_Pin GPIO_PIN_8
+#define HB3_INH_GPIO_Port GPIOA
+#define HB2_INH_Pin GPIO_PIN_9
+#define HB2_INH_GPIO_Port GPIOA
+#define HB1_INH_Pin GPIO_PIN_10
+#define HB1_INH_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
+
 
 /* USER CODE END Private defines */
 

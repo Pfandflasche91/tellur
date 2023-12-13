@@ -20,10 +20,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc_if.h"
-#include "globals.h"
 
 /* USER CODE BEGIN INCLUDE */
-
+#include "globals.h"
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,7 +51,7 @@
 /* USER CODE BEGIN PRIVATE_TYPES */
 
 uint8_t buf[7];
-ControlState controlState = off;
+
 char commandline[250];
 
 

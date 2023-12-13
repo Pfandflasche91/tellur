@@ -32,6 +32,8 @@
 #include "control_state_machine.h"
 #include "globals.h"
 
+
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,7 +61,7 @@ TIM_HandleTypeDef htim14;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-
+int ramp_up(int duty_cycle, int counter, int count_max,int gain);
 
 /* USER CODE END PV */
 
@@ -78,7 +80,7 @@ static void MX_TIM14_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+bool control_flag = FALSE;
 
 /* USER CODE END 0 */
 
@@ -89,8 +91,22 @@ static void MX_TIM14_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	ControlStateMachine controlStateMachine;
 	controlStateMachine.currentState = off;
+	inverter.EN_5V = FALSE;
+
+	inverter.PhaseA.gpioPin_pha_enable.pinNUmber = HB1_INH_Pin;
+	inverter.PhaseA.gpioPin_pha_enable.port = HB1_INH_GPIO_Port;
+	strcpy(inverter.PhaseA.name,"PhaseA");
+
+	inverter.PhaseB.gpioPin_pha_enable.pinNUmber = HB2_INH_Pin;
+	inverter.PhaseB.gpioPin_pha_enable.port = HB2_INH_GPIO_Port;
+	strcpy(inverter.PhaseB.name,"PhaseB");
+
+	inverter.PhaseC.gpioPin_pha_enable.pinNUmber = HB3_INH_Pin;
+	inverter.PhaseC.gpioPin_pha_enable.port = HB3_INH_GPIO_Port;
+	strcpy(inverter.PhaseC.name,"PhaseC");
+
+
 
   /* USER CODE END 1 */
 
@@ -125,6 +141,14 @@ int main(void)
 
   // STart timer
   srand(time(NULL));
+
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
+  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_2);
+ // HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_3);
+  //HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_3);
+  /*
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_1);
   HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_2);
@@ -139,8 +163,8 @@ int main(void)
 
 
   HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
-
-
+  */
+  char result[100];
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -160,8 +184,27 @@ int main(void)
 		  transitionToState(&controlStateMachine, controlState);
 
 	  }
+	  if (!control_enabled && control_flag ){
+		  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,0);
+		  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+		  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,0);
+		  transitionphaMode(FALSE,inverter.PhaseA);
+		  transitionphaMode(FALSE,inverter.PhaseB);
+		  transitionphaMode(FALSE,inverter.PhaseC);
+
+		  char dataToSend[] = "CONTROL DISABLED!\r\n";
+		  snprintf(result, sizeof(result),"%s",dataToSend);
+		  CDC_Transmit_FS((uint8_t *)result,strlen(result));
+
+		  control_flag = FALSE;
+	  }
+
+	  if (init){
+		  initInverter(inverter);
+	  }
 	  HAL_Delay(1000);
 	  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+
 
   }
   /* USER CODE END 3 */
@@ -280,15 +323,14 @@ static void MX_TIM2_Init(void)
   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
-  TIM_IC_InitTypeDef sConfigIC = {0};
 
   /* USER CODE BEGIN TIM2_Init 1 */
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 0;
+  htim2.Init.Prescaler = 72-1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 3600;
+  htim2.Init.Period = 1000-1;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -304,10 +346,6 @@ static void MX_TIM2_Init(void)
   {
     Error_Handler();
   }
-  if (HAL_TIM_IC_Init(&htim2) != HAL_OK)
-  {
-    Error_Handler();
-  }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
@@ -315,18 +353,18 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 1500;
+  sConfigOC.Pulse = 500;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();
   }
-  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
-  sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
-  sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
-  sConfigIC.ICFilter = 0;
-  if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_3) != HAL_OK)
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
   {
     Error_Handler();
   }
@@ -568,10 +606,10 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(EN_5V_GPIO_Port, EN_5V_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(EN_5V_GPIO_Port, EN_5V_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, HB3_INH_Pin|HB2_INH_Pin|HB1_INH_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : LED_Pin */
   GPIO_InitStruct.Pin = LED_Pin;
@@ -587,16 +625,9 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(EN_5V_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA8 PA9 */
-  GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+  /*Configure GPIO pins : HB3_INH_Pin HB2_INH_Pin HB1_INH_Pin */
+  GPIO_InitStruct.Pin = HB3_INH_Pin|HB2_INH_Pin|HB1_INH_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PA10 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -610,7 +641,14 @@ static void MX_GPIO_Init(void)
 
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
-	int duty_cycle = 10;
+
+	if(htim->Instance == TIM2){
+		if (control_enabled){
+			control();
+
+		}
+	}
+	/*int duty_cycle = 10;
 	if (htim == &htim2)
 	{
 		duty_cycle = __HAL_TIM_GET_COMPARE(&htim2,TIM_CHANNEL_1);
@@ -626,7 +664,7 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 		//__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,r);
 		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,duty_cycle);
 	}
-
+*/
 }
 void HAL_TIM_IC_CaptureHalfCpltCallback(TIM_HandleTypeDef *htim)
 {
@@ -636,9 +674,87 @@ void HAL_TIM_IC_CaptureHalfCpltCallback(TIM_HandleTypeDef *htim)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+	if(htim->Instance == TIM2){
+		//scontrol();
+	}
 
 }
 
+int ramp_up(int duty_cycle, int counter,int count_max,int gain){
+	int calc = 0;
+	if (counter <= (int)(count_max/2)){
+		calc= 2*gain*counter + (duty_cycle-(gain*count_max));
+
+	}else{
+		calc= -2*gain*counter + (duty_cycle+(gain*count_max));
+	}
+
+	return calc;
+}
+void control(void){
+	int duty_cycle = 200;
+	int max_count = 25;
+	int gain = 1;
+	if (step == 1){
+		transitionphaMode(TRUE,inverter.PhaseA);
+		transitionphaMode(FALSE,inverter.PhaseB);
+		transitionphaMode(TRUE,inverter.PhaseC);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,0);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,0);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,ramp_up(duty_cycle,counter,max_count,gain));
+	}
+	if (step == 2){
+		transitionphaMode(FALSE,inverter.PhaseA);
+		transitionphaMode(TRUE,inverter.PhaseB);
+		transitionphaMode(TRUE,inverter.PhaseC);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,0);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,ramp_up(duty_cycle,counter,max_count,gain));
+	}
+	if (step == 3){
+		transitionphaMode(TRUE,inverter.PhaseA);
+		transitionphaMode(TRUE,inverter.PhaseB);
+		transitionphaMode(FALSE,inverter.PhaseC);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,ramp_up(duty_cycle,counter,max_count,gain));
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,0);
+	}
+	if (step == 4){
+		transitionphaMode(TRUE,inverter.PhaseA);
+		transitionphaMode(FALSE,inverter.PhaseB);
+		transitionphaMode(TRUE,inverter.PhaseC);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,0);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,ramp_up(duty_cycle,counter,max_count,gain));
+	}
+	if (step == 5){
+		transitionphaMode(FALSE,inverter.PhaseA);
+		transitionphaMode(TRUE,inverter.PhaseB);
+		transitionphaMode(TRUE,inverter.PhaseC);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,0);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,ramp_up(duty_cycle,counter,max_count,gain));
+	}
+	if (step == 6){
+		transitionphaMode(TRUE,inverter.PhaseA);
+		transitionphaMode(TRUE,inverter.PhaseB);
+		transitionphaMode(FALSE,inverter.PhaseC);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,0);
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,ramp_up(duty_cycle,counter,max_count,gain));
+		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,0);
+	}
+	counter = counter +1;
+
+	if (counter == max_count){
+		step = step +1;
+		counter = 0;
+	}
+	if (step >=7){
+		step =1;
+	}
+
+	control_flag=TRUE;
+}
 
 
 /* USER CODE END 4 */
